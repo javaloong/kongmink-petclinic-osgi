@@ -1,0 +1,31 @@
+# EditorConfig helps developers define and maintain consistent
+# coding styles between different editors and IDEs
+# http://editorconfig.org
+root = true
+
+# All Files
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+continuation_indent_size = 2
+end_of_line = lf
+
+# Markdown Files
+[*.md]
+trim_trailing_whitespace = false
+
+# XML Configuration Files
+[*.{xml,config}]
+indent_size = 4
+
+# Batch Files
+[*.{cmd,bat}]
+end_of_line = crlf
+
+# Java Style Rules
+[*.{gradle,groovy,java}]
+indent_size = 4
+continuation_indent_size = 8
