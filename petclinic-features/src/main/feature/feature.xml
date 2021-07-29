@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+      http://www.apache.org/licenses/LICENSE-2.0
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<features name="petclinic-osgi-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
+
+    <feature name="petclinic-osgi-datasource-hsqldb" version="${project.version}">
+        <config name="org.ops4j.datasource-hsqldb">
+            osgi.jdbc.driver.class=org.hsqldb.jdbcDriver
+            url=jdbc:hsqldb:mem:petclinic;sql.enforce_strict_size=true;hsqldb.tx=mvcc
+            databaseName=petclinic
+            dataSourceName=petclinic
+            username=sa
+        </config>
+        <capability>osgi.service;objectClass=javax.sql.DataSource;effective:=active;osgi.jndi.service.name=petclinic</capability>
+        <feature>pax-jdbc-config</feature>
+        <feature>pax-jdbc-hsqldb</feature>
+    </feature>
+
+    <feature name="petclinic-osgi-datasource-mysql" version="${project.version}">
+        <config name="org.ops4j.datasource-mysql">
+            osgi.jdbc.driver.class=com.mysql.jdbc.Driver
+            url=jdbc:mysql://localhost:3306/petclinic?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
+            databaseName=petclinic
+            dataSourceName=petclinic
+            user=root
+            password=
+        </config>
+        <capability>osgi.service;objectClass=javax.sql.DataSource;effective:=active;osgi.jndi.service.name=petclinic</capability>
+        <feature>pax-jdbc-config</feature>
+        <bundle dependency="true">mvn:mysql/mysql-connector-java/${mysql.version}</bundle>
+        <bundle>mvn:org.ops4j.pax.jdbc/pax-jdbc-mysql/${pax.jdbc.version}</bundle>
+    </feature>
+
+</features>
