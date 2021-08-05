@@ -18,22 +18,21 @@
 <features name="petclinic-osgi-${project.version}" xmlns="http://karaf.apache.org/xmlns/features/v1.3.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://karaf.apache.org/xmlns/features/v1.3.0 http://karaf.apache.org/xmlns/features/v1.3.0">
 
-    <feature name="petclinic-osgi-datasource-hsqldb" version="${project.version}">
-        <config name="org.ops4j.datasource-hsqldb">
-            osgi.jdbc.driver.class=org.hsqldb.jdbcDriver
-            url=jdbc:hsqldb:mem:petclinic;sql.enforce_strict_size=true;hsqldb.tx=mvcc
-            databaseName=petclinic
+    <feature name="petclinic-osgi-datasource-h2" version="${project.version}">
+        <config name="org.ops4j.datasource-h2">
+            osgi.jdbc.driver.class=org.h2.Driver
+            databaseName=./petclinic;create=true
             dataSourceName=petclinic
-            username=sa
         </config>
         <capability>osgi.service;objectClass=javax.sql.DataSource;effective:=active;osgi.jndi.service.name=petclinic</capability>
         <feature>pax-jdbc-config</feature>
-        <feature>pax-jdbc-hsqldb</feature>
+        <feature>pax-jdbc-h2</feature>
     </feature>
 
     <feature name="petclinic-osgi-datasource-mysql" version="${project.version}">
         <config name="org.ops4j.datasource-mysql">
             osgi.jdbc.driver.class=com.mysql.jdbc.Driver
+            pool = dbcp2
             url=jdbc:mysql://localhost:3306/petclinic?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
             databaseName=petclinic
             dataSourceName=petclinic
@@ -42,6 +41,7 @@
         </config>
         <capability>osgi.service;objectClass=javax.sql.DataSource;effective:=active;osgi.jndi.service.name=petclinic</capability>
         <feature>pax-jdbc-config</feature>
+        <feature>pax-jdbc-pool-dbcp2</feature>
         <bundle dependency="true">mvn:mysql/mysql-connector-java/${mysql.version}</bundle>
         <bundle>mvn:org.ops4j.pax.jdbc/pax-jdbc-mysql/${pax.jdbc.version}</bundle>
     </feature>
