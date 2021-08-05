@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <owners id="1" first_name="George" last_name="Franklin" address="110 W. Liberty St." city="Madison" telephone="6085551023" />
+    <owners id="2" first_name="Betty" last_name="Davis" address="638 Cardinal Ave." city="Sun Prairie" telephone="6085551749" />
+
+    <owners id="3" first_name="fn3" last_name="ln3" address="addr3" city="city3" telephone="222222" />
+</dataset>

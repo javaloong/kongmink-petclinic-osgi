@@ -29,6 +29,7 @@
 
     <modules>
 	    <module>petclinic-customers-api</module>
+        <module>petclinic-customers-blueprint</module>
     </modules>
 
 </project>
