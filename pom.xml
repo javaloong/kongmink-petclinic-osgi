@@ -33,6 +33,7 @@
         <jakarta.persistence.version>2.2.3</jakarta.persistence.version>
         <jakarta.transaction.version>1.3.3</jakarta.transaction.version>
         <jakarta.validation.version>2.0.2</jakarta.validation.version>
+        <jakarta.ws.rs.version>2.1.6</jakarta.ws.rs.version>
         <jackson.version>2.11.4</jackson.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <hibernate.version>5.4.29.Final</hibernate.version>
@@ -72,6 +73,11 @@
                 <groupId>jakarta.validation</groupId>
                 <artifactId>jakarta.validation-api</artifactId>
                 <version>${jakarta.validation.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>jakarta.ws.rs</groupId>
+                <artifactId>jakarta.ws.rs-api</artifactId>
+                <version>${jakarta.ws.rs.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
