@@ -49,6 +49,7 @@
     <modules>
         <module>petclinic-features</module>
         <module>petclinic-customers</module>
+        <module>petclinic-itest</module>
     </modules>
 
     <dependencyManagement>
