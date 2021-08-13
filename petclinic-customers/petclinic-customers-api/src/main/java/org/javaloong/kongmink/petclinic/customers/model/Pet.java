@@ -15,7 +15,8 @@
  */
 package org.javaloong.kongmink.petclinic.customers.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import javax.persistence.*;
@@ -31,6 +32,8 @@ import java.util.Date;
  */
 @Entity
 @Table(name = "pets")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = Pet.class)
 public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,7 +52,6 @@ public class Pet {
 
     @ManyToOne
     @JoinColumn(name = "owner_id")
-    @JsonIgnore
     private Owner owner;
 
     public Integer getId() {

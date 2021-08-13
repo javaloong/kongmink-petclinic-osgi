@@ -15,6 +15,9 @@
  */
 package org.javaloong.kongmink.petclinic.customers.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 /**
@@ -23,6 +26,8 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "types")
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id", scope = PetType.class)
 public class PetType {
 
     @Id
