@@ -1,5 +1,6 @@
 package org.javaloong.kongmink.petclinic.customers.blueprint.impl.web;
 
+import org.javaloong.kongmink.petclinic.customers.blueprint.impl.util.BeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Pet;
 import org.javaloong.kongmink.petclinic.customers.service.PetService;
 
@@ -16,9 +17,11 @@ import java.util.Map;
 public class PetResource {
 
     private final PetService petService;
+    private final BeanMapper beanMapper;
 
-    public PetResource(PetService petService) {
+    public PetResource(PetService petService, BeanMapper beanMapper) {
         this.petService = petService;
+        this.beanMapper = beanMapper;
     }
 
     @Path("/pettypes")
@@ -43,6 +46,7 @@ public class PetResource {
         if (pet == null) {
             return Response.status(Status.NOT_FOUND).build();
         }
+        beanMapper.map(attributes, pet);
         petService.savePet(pet);
         return Response.noContent().entity(pet).build();
     }

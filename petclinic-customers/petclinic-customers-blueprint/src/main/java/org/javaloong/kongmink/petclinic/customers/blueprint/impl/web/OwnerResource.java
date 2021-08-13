@@ -15,54 +15,93 @@
  */
 package org.javaloong.kongmink.petclinic.customers.blueprint.impl.web;
 
+import org.javaloong.kongmink.petclinic.customers.blueprint.impl.util.BeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Owner;
 import org.javaloong.kongmink.petclinic.customers.service.OwnerService;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
 import java.util.Collection;
+import java.util.Map;
 
-@Path("/owners")
+@Path("/api/owners")
 @Produces(MediaType.APPLICATION_JSON)
 public class OwnerResource {
 
     private final OwnerService ownerService;
+    private final BeanMapper beanMapper;
 
-    public OwnerResource(OwnerService ownerService) {
+    public OwnerResource(OwnerService ownerService, BeanMapper beanMapper) {
         this.ownerService = ownerService;
+        this.beanMapper = beanMapper;
     }
 
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
-    public void add(Owner owner) {
+    public Response addOwner(@Valid Owner owner) {
         ownerService.saveOwner(owner);
+        return Response.ok(owner).status(Status.CREATED).build();
     }
 
-    @Path("/{id}")
+    @Path("/{ownerId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
-    public void update(@PathParam("id") int id, Owner request) {
-        Owner owner = ownerService.findOwnerById(id);
+    public Response updateOwner(@PathParam("ownerId") int ownerId, Map<String, Object> attributes) {
+        Owner owner = ownerService.findOwnerById(ownerId);
+        if (owner == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        beanMapper.map(attributes, owner);
         ownerService.saveOwner(owner);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
-    @Path("/{id}")
+    @Path("/{ownerId}")
     @DELETE
-    public void remove(@PathParam("id") int id) {
-        Owner owner = ownerService.findOwnerById(id);
+    public Response deleteOwner(@PathParam("ownerId") int ownerId) {
+        Owner owner = ownerService.findOwnerById(ownerId);
+        if (owner == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
         ownerService.deleteOwner(owner);
+        return Response.status(Status.NO_CONTENT).build();
     }
 
-    @Path("/{id}")
     @GET
-    public Owner get(@PathParam("id") int id) {
-        return ownerService.findOwnerById(id);
+    @Path("/{ownerId}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public Response getOwner(@PathParam("ownerId") int ownerId) {
+        Owner owner = this.ownerService.findOwnerById(ownerId);
+        if (owner == null) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        return Response.ok(owner).status(Status.OK).build();
     }
 
-    @Path("")
     @GET
-    public Collection<Owner> list() {
-        return ownerService.findAllOwners();
+    @Path("/")
+    public Response getOwners() {
+        Collection<Owner> owners = this.ownerService.findAllOwners();
+        if (owners.isEmpty()) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        return Response.ok(owners).status(Status.OK).build();
+    }
+
+    @GET
+    @Path("/*/lastname/{lastName}")
+    public Response getOwnersList(@PathParam("lastName") String ownerLastName) {
+        if (ownerLastName == null) {
+            ownerLastName = "";
+        }
+        Collection<Owner> owners = this.ownerService.findAllOwnersByLastName(ownerLastName);
+        if (owners.isEmpty()) {
+            return Response.status(Status.NOT_FOUND).build();
+        }
+        return Response.ok(owners).status(Status.OK).build();
     }
 }
