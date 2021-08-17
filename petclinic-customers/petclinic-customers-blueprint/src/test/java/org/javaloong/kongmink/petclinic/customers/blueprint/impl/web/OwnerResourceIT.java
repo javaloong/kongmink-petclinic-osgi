@@ -1,12 +1,15 @@
 package org.javaloong.kongmink.petclinic.customers.blueprint.impl.web;
 
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
+import org.apache.cxf.jaxrs.validation.ValidationExceptionMapper;
 import org.javaloong.kongmink.petclinic.customers.blueprint.impl.repository.OwnerRepositoryImpl;
 import org.javaloong.kongmink.petclinic.customers.blueprint.impl.service.OwnerServiceImpl;
+import org.javaloong.kongmink.petclinic.customers.blueprint.impl.util.ModelMapperBeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Owner;
-import org.junit.Rule;
+import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -24,12 +27,12 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataSet(value = {"ownerData.xml", "petData.xml"})
 public class OwnerResourceIT extends WebResourceTestSupport {
 
-    @Rule
-    public JaxrsServerProvider<OwnerResource> server = JaxrsServerProvider
+    @ClassRule
+    public static JaxrsServerProvider<OwnerResource> server = JaxrsServerProvider
             .jaxrsServer(OwnerResource.class, () -> new OwnerResource(
-                    new OwnerServiceImpl(OwnerRepositoryImpl.newInstance(emProvider.getEm())), getBeanMapper()))
-            .withProvider(jacksonJsonProvider())
-            .withProvider(validationExceptionMapper());
+                    new OwnerServiceImpl(new OwnerRepositoryImpl(em())), new ModelMapperBeanMapper()))
+            .withProvider(new JacksonJsonProvider())
+            .withProvider(new ValidationExceptionMapper());
 
     @Test
     @DataSet(transactional = true)
@@ -139,7 +142,8 @@ public class OwnerResourceIT extends WebResourceTestSupport {
 
         assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Collection<Owner> owners = response.readEntity(
-                new GenericType<Collection<Owner>>() {});
+                new GenericType<Collection<Owner>>() {
+                });
         assertThat(owners).hasSize(2);
     }
 
@@ -166,7 +170,8 @@ public class OwnerResourceIT extends WebResourceTestSupport {
 
         assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Collection<Owner> owners = response.readEntity(
-                new GenericType<Collection<Owner>>() {});
+                new GenericType<Collection<Owner>>() {
+                });
         assertThat(owners).hasSize(1);
     }
 }

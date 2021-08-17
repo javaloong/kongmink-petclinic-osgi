@@ -11,14 +11,16 @@ import java.util.List;
 
 public class PetRepositoryImpl implements PetRepository {
 
-    public static PetRepositoryImpl newInstance(EntityManager em) {
-        PetRepositoryImpl instance = new PetRepositoryImpl();
-        instance.em = em;
-        return instance;
-    }
-
     @PersistenceContext(unitName = "customers")
     private EntityManager em;
+
+    public PetRepositoryImpl() {
+
+    }
+
+    public PetRepositoryImpl(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public void save(Pet pet) {

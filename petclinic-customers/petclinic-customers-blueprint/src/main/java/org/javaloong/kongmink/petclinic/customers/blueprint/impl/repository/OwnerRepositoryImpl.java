@@ -11,14 +11,16 @@ import java.util.Collection;
 
 public class OwnerRepositoryImpl implements OwnerRepository {
 
-    public static OwnerRepositoryImpl newInstance(EntityManager em) {
-        OwnerRepositoryImpl instance = new OwnerRepositoryImpl();
-        instance.em = em;
-        return instance;
-    }
-
     @PersistenceContext(unitName = "customers")
     private EntityManager em;
+
+    public OwnerRepositoryImpl() {
+
+    }
+
+    public OwnerRepositoryImpl(EntityManager em) {
+        this.em = em;
+    }
 
     @Override
     public Owner findById(int id) {
