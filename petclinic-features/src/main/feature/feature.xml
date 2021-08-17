@@ -67,6 +67,9 @@
         <feature version="${project.version}">petclinic-osgi-customers-api</feature>
         <feature dependency="true">aries-blueprint</feature>
         <feature version="${cxf.version}">cxf-jaxrs</feature>
+        <feature version="${cxf.version}">cxf-features-logging</feature>
+        <feature version="${cxf.version}">cxf-bean-validation</feature>
+        <bundle dependency="true">mvn:org.modelmapper/modelmapper/${modelmapper.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-blueprint/${project.version}</bundle>
     </feature>
 
