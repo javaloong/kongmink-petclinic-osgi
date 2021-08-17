@@ -27,13 +27,17 @@ public class OwnerRepositoryImpl implements OwnerRepository {
 
     @Override
     public void save(Owner owner) {
-        em.persist(owner);
-        em.flush();
+        if (owner.getId() == null) {
+            em.persist(owner);
+        } else {
+            em.merge(owner);
+            em.flush();
+        }
     }
 
     @Override
     public void delete(Owner owner) {
-        em.remove(owner);
+        em.remove(em.contains(owner) ? owner : em.merge(owner));
     }
 
     @Override

@@ -22,13 +22,17 @@ public class PetRepositoryImpl implements PetRepository {
 
     @Override
     public void save(Pet pet) {
-        em.persist(pet);
-        em.flush();
+        if (pet.getId() == null) {
+            em.persist(pet);
+        } else {
+            em.merge(pet);
+            em.flush();
+        }
     }
 
     @Override
     public void delete(Pet pet) {
-        em.remove(pet);
+        em.remove(em.contains(pet) ? pet : em.merge(pet));
     }
 
     @Override
