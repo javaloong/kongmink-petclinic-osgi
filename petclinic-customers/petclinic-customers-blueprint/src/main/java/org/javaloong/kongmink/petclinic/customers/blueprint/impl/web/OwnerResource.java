@@ -27,7 +27,7 @@ import javax.ws.rs.core.Response.Status;
 import java.util.Collection;
 import java.util.Map;
 
-@Path("/api/owners")
+@Path("/owners")
 @Produces(MediaType.APPLICATION_JSON)
 public class OwnerResource {
 

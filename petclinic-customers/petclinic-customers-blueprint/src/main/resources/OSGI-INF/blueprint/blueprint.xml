@@ -42,7 +42,7 @@
     <service ref="ownerService" interface="org.javaloong.kongmink.petclinic.customers.service.OwnerService" />
     <service ref="petService" interface="org.javaloong.kongmink.petclinic.customers.service.PetService" />
 
-    <jaxrs:server id="customersRest" address="/customers">
+    <jaxrs:server id="customersRest" address="/api">
         <jaxrs:serviceBeans>
             <ref component-id="ownerResource" />
             <ref component-id="petResource" />

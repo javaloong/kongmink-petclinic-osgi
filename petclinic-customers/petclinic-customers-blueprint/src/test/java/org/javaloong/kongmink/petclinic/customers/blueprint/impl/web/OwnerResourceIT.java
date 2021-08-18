@@ -44,7 +44,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
         owner.setCity("city3");
 
         Response response = target(server.baseUrl())
-                .path("api/owners")
+                .path("/owners")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(owner));
@@ -64,7 +64,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
         owner.setTelephone("222222");
 
         Response response = target(server.baseUrl())
-                .path("api/owners")
+                .path("/owners")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(owner));
@@ -79,7 +79,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
         map.put("telephone", "xxx");
 
         Response response = target(server.baseUrl())
-                .path("api/owners/{ownerId}")
+                .path("/owners/{ownerId}")
                 .resolveTemplate("ownerId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -96,7 +96,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
         map.put("telephone", "222222");
 
         Response response = target(server.baseUrl())
-                .path("api/owners/{ownerId}")
+                .path("/owners/{ownerId}")
                 .resolveTemplate("ownerId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -108,7 +108,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     @Test
     public void getOwner_OwnerNotFound_ShouldReturnHttpStatusNotFound() {
         Response response = target(server.baseUrl())
-                .path("api/owners/{ownerId}")
+                .path("/owners/{ownerId}")
                 .resolveTemplate("ownerId", 0)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -120,7 +120,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     @Test
     public void getOwner_OwnerFound_ShouldReturnFoundOwner() {
         Response response = target(server.baseUrl())
-                .path("api/owners/{ownerId}")
+                .path("/owners/{ownerId}")
                 .resolveTemplate("ownerId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -135,7 +135,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     @Test
     public void getOwners_OwnersFound_ShouldReturnFoundOwners() {
         Response response = target(server.baseUrl())
-                .path("api/owners")
+                .path("/owners")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
@@ -150,7 +150,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     @Test
     public void getOwnersList_OwnersListNotFound_ShouldReturnFoundOwnersList() {
         Response response = target(server.baseUrl())
-                .path("/api/owners/*/lastname/{lastName}")
+                .path("/owners/*/lastname/{lastName}")
                 .resolveTemplate("lastName", "0")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -162,7 +162,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     @Test
     public void getOwnersList_OwnersListFound_ShouldReturnFoundOwnersList() {
         Response response = target(server.baseUrl())
-                .path("/api/owners/*/lastname/{lastName}")
+                .path("/owners/*/lastname/{lastName}")
                 .resolveTemplate("lastName", "Franklin")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)

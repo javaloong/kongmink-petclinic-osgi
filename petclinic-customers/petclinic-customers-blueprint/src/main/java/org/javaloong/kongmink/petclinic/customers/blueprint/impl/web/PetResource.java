@@ -12,7 +12,7 @@ import javax.ws.rs.core.Response.Status;
 import java.util.Collection;
 import java.util.Map;
 
-@Path("api/pets")
+@Path("/pets")
 @Produces(MediaType.APPLICATION_JSON)
 public class PetResource {
 

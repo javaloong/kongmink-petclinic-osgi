@@ -52,7 +52,7 @@ public class PetResourceIT extends WebResourceTestSupport {
         pet.setOwner(owner);
 
         Response response = target(server.baseUrl())
-                .path("api/pets")
+                .path("/pets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .post(Entity.json(pet));
@@ -70,7 +70,7 @@ public class PetResourceIT extends WebResourceTestSupport {
         map.put("type", petType);
 
         Response response = target(server.baseUrl())
-                .path("api/pets/{petId}")
+                .path("/pets/{petId}")
                 .resolveTemplate("petId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -82,7 +82,7 @@ public class PetResourceIT extends WebResourceTestSupport {
     @Test
     public void getPet_PetNotFound_ShouldReturnHttpStatusNotFound() {
         Response response = target(server.baseUrl())
-                .path("api/pets/{petId}")
+                .path("/pets/{petId}")
                 .resolveTemplate("petId", 0)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -94,7 +94,7 @@ public class PetResourceIT extends WebResourceTestSupport {
     @Test
     public void getPet_PetFound_ShouldReturnFoundPet() {
         Response response = target(server.baseUrl())
-                .path("api/pets/{petId}")
+                .path("/pets/{petId}")
                 .resolveTemplate("petId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -109,7 +109,7 @@ public class PetResourceIT extends WebResourceTestSupport {
     @Test
     public void getPets_PetsFound_ShouldReturnFoundPets() {
         Response response = target(server.baseUrl())
-                .path("api/pets")
+                .path("/pets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();

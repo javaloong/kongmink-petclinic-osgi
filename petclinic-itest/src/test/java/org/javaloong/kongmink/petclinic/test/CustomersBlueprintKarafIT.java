@@ -39,7 +39,7 @@ public class CustomersBlueprintKarafIT extends KarafTestSupport {
     }
 
     private String getLocation() throws Exception {
-        return "http://localhost:" + getHttpPort() + "/cxf/customers/";
+        return "http://localhost:" + getHttpPort() + "/cxf/api/";
     }
 
     @Test
@@ -72,7 +72,7 @@ public class CustomersBlueprintKarafIT extends KarafTestSupport {
         @SuppressWarnings("unchecked")
         Collection<Owner> owners = (Collection<Owner>) client
                 .accept(MediaType.APPLICATION_JSON_TYPE)
-                .path("api/owners")
+                .path("/owners")
                 .getCollection(Owner.class);
         assertThat(owners, hasSize(1));
         assertThat(owners, hasItem(anyOf(hasProperty("firstName", is("fn3")),
