@@ -42,21 +42,6 @@
     <service ref="ownerService" interface="org.javaloong.kongmink.petclinic.customers.service.OwnerService" />
     <service ref="petService" interface="org.javaloong.kongmink.petclinic.customers.service.PetService" />
 
-    <jaxrs:server id="customersRest" address="/api">
-        <jaxrs:serviceBeans>
-            <ref component-id="ownerResource" />
-            <ref component-id="petResource" />
-        </jaxrs:serviceBeans>
-        <jaxrs:features>
-            <cxf:logging />
-            <ref component-id="jaxrsValidationFeature" />
-        </jaxrs:features>
-        <jaxrs:providers>
-            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
-            <bean class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
-        </jaxrs:providers>
-    </jaxrs:server>
-
     <bean id="beanMapper" class="org.javaloong.kongmink.petclinic.customers.blueprint.impl.util.ModelMapperBeanMapper" />
 
     <bean id="ownerResource" class="org.javaloong.kongmink.petclinic.customers.blueprint.impl.web.OwnerResource">
@@ -68,11 +53,41 @@
         <argument ref="beanMapper" />
     </bean>
 
-    <bean id="jaxrsValidationFeature" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationFeature">
+    <jaxrs:server id="customersRest" address="/api">
+        <jaxrs:serviceBeans>
+            <ref component-id="ownerResource" />
+            <ref component-id="petResource" />
+        </jaxrs:serviceBeans>
+        <jaxrs:features>
+            <ref component-id="jaxrsBeanValidationFeature" />
+            <ref component-id="swagger2Feature" />
+        </jaxrs:features>
+        <jaxrs:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+            <bean class="org.apache.cxf.jaxrs.validation.ValidationExceptionMapper"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+
+    <cxf:bus>
+        <cxf:features>
+            <cxf:logging />
+        </cxf:features>
+        <cxf:properties>
+            <entry key="skip.default.json.provider.registration" value="true" />
+        </cxf:properties>
+    </cxf:bus>
+
+    <!-- CXF JAXRSBeanValidationFeature -->
+    <bean id="jaxrsBeanValidationFeature" class="org.apache.cxf.jaxrs.validation.JAXRSBeanValidationFeature">
         <property name="provider" ref="beanValidationProvider"/>
     </bean>
     <bean id="beanValidationProvider" class="org.apache.cxf.validation.BeanValidationProvider">
         <argument ref="validationProviderResolver" />
     </bean>
     <bean id="validationProviderResolver" class="org.javaloong.kongmink.petclinic.customers.blueprint.impl.validation.HibernateValidationProviderResolver" />
+
+    <!-- CXF Swagger2Feature -->
+    <bean id="swagger2Feature" class="org.apache.cxf.jaxrs.swagger.Swagger2Feature">
+        <property name="basePath" value="/cxf/api"/>
+    </bean>
 </blueprint>
