@@ -1,10 +1,8 @@
 package org.javaloong.kongmink.petclinic.customers.blueprint.impl.web;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.apache.cxf.jaxrs.validation.ValidationExceptionMapper;
 import org.javaloong.kongmink.petclinic.customers.blueprint.impl.repository.OwnerRepositoryImpl;
 import org.javaloong.kongmink.petclinic.customers.blueprint.impl.service.OwnerServiceImpl;
 import org.javaloong.kongmink.petclinic.customers.blueprint.impl.util.ModelMapperBeanMapper;
@@ -31,8 +29,8 @@ public class OwnerResourceIT extends WebResourceTestSupport {
     public static JaxrsServerProvider<OwnerResource> server = JaxrsServerProvider
             .jaxrsServer(OwnerResource.class, () -> new OwnerResource(
                     new OwnerServiceImpl(new OwnerRepositoryImpl(em())), new ModelMapperBeanMapper()))
-            .withProvider(new JacksonJsonProvider())
-            .withProvider(new ValidationExceptionMapper());
+            .withProvider(jacksonJsonProvider())
+            .withProvider(validationExceptionMapper());
 
     @Test
     @DataSet(transactional = true)

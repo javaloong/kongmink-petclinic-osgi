@@ -3,6 +3,7 @@ package org.javaloong.kongmink.petclinic.customers.blueprint.impl.web;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import com.github.database.rider.core.DBUnitRule;
 import com.github.database.rider.core.util.EntityManagerProvider;
+import org.apache.cxf.jaxrs.validation.ValidationExceptionMapper;
 import org.junit.Rule;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -26,11 +27,17 @@ public abstract class WebResourceTestSupport {
         return EntityManagerProvider.em(PERSISTENCE_UNIT_NAME);
     }
 
-    private final JacksonJsonProvider jacksonJsonProvider = new JacksonJsonProvider();
+    public static JacksonJsonProvider jacksonJsonProvider() {
+        return new JacksonJsonProvider();
+    }
+
+    public static ValidationExceptionMapper validationExceptionMapper() {
+        return new ValidationExceptionMapper();
+    }
 
     public WebTarget target(String uri) {
         return ClientBuilder.newClient()
-                .register(jacksonJsonProvider)
+                .register(jacksonJsonProvider())
                 .target(uri);
     }
 }
