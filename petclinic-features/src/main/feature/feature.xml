@@ -20,6 +20,7 @@
 
     <repository>mvn:org.hibernate.validator/hibernate-validator-osgi-karaf-features/${hibernate-validator.version}/xml/features</repository>
     <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
+    <repository>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.features/${aries.jax.rs.version}/xml</repository>
 
     <feature name="petclinic-osgi-datasource-h2" version="${project.version}">
         <config name="org.ops4j.datasource-h2">
@@ -83,6 +84,14 @@
         <feature version="${cxf.version}">cxf-rs-description-swagger2</feature>
         <bundle dependency="true">mvn:org.modelmapper/modelmapper/${modelmapper.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-blueprint/${project.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-visits-ds" version="${project.version}">
+        <feature version="${project.version}">petclinic-osgi-visits-api</feature>
+        <feature>pax-web-http-whiteboard</feature>
+        <feature>aries-jax-rs-whiteboard</feature>
+        <feature>aries-jax-rs-whiteboard-jackson</feature>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-ds/${project.version}</bundle>
     </feature>
 
 </features>
