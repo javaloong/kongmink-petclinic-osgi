@@ -33,8 +33,8 @@
         <jakarta.persistence.version>2.2.3</jakarta.persistence.version>
         <jakarta.transaction.version>1.3.3</jakarta.transaction.version>
         <jakarta.validation.version>2.0.2</jakarta.validation.version>
-        <jakarta.ws.rs.version>2.1.6</jakarta.ws.rs.version>
-        <jakarta.el.version>3.0.3</jakarta.el.version>
+        <javax.ws.rs.version>2.0.1</javax.ws.rs.version>
+        <javax.el.version>3.0.0</javax.el.version>
         <cxf.version>3.4.3</cxf.version>
         <jackson.version>2.11.4</jackson.version>
         <modelmapper.version>2.4.2</modelmapper.version>
@@ -84,9 +84,9 @@
                 <version>${jakarta.validation.version}</version>
             </dependency>
             <dependency>
-                <groupId>jakarta.ws.rs</groupId>
-                <artifactId>jakarta.ws.rs-api</artifactId>
-                <version>${jakarta.ws.rs.version}</version>
+                <groupId>javax.ws.rs</groupId>
+                <artifactId>javax.ws.rs-api</artifactId>
+                <version>${javax.ws.rs.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.jpa</groupId>
@@ -186,15 +186,15 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>jakarta.el</groupId>
-                <artifactId>jakarta.el-api</artifactId>
-                <version>${jakarta.el.version}</version>
+                <groupId>javax.el</groupId>
+                <artifactId>javax.el-api</artifactId>
+                <version>${javax.el.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
                 <groupId>org.glassfish</groupId>
-                <artifactId>jakarta.el</artifactId>
-                <version>${jakarta.el.version}</version>
+                <artifactId>javax.el</artifactId>
+                <version>${javax.el.version}</version>
                 <scope>test</scope>
             </dependency>
         </dependencies>

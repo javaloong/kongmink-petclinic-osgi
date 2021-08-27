@@ -46,6 +46,22 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>org.javaloong.kongmink</groupId>
+            <artifactId>petclinic-osgi-visits-api</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javaloong.kongmink</groupId>
+            <artifactId>petclinic-osgi-visits-ds</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>javax.ws.rs</groupId>
+            <artifactId>javax.ws.rs-api</artifactId>
+        </dependency>
+        <dependency>
             <groupId>org.apache.cxf</groupId>
             <artifactId>cxf-rt-rs-client</artifactId>
             <scope>test</scope>
