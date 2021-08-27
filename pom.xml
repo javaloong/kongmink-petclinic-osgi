@@ -42,6 +42,9 @@
         <hibernate.version>5.4.29.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <pax.jdbc.version>1.5.0</pax.jdbc.version>
+        <aries.jpa.version>2.7.2</aries.jpa.version>
+        <aries.jax.rs.version>1.0.6</aries.jax.rs.version>
+        <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <h2.version>1.4.200</h2.version>
         <mysql.version>8.0.26</mysql.version>
         <database-rider.version>1.25.0</database-rider.version>
@@ -86,6 +89,11 @@
                 <version>${jakarta.ws.rs.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.apache.aries.jpa</groupId>
+                <artifactId>org.apache.aries.jpa.api</artifactId>
+                <version>${aries.jpa.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>com.fasterxml.jackson.core</groupId>
                 <artifactId>jackson-annotations</artifactId>
                 <version>${jackson.version}</version>
@@ -112,6 +120,18 @@
             </dependency>
             <!-- Test dependencies -->
             <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-core</artifactId>
+                <version>${assertj.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>org.hibernate</groupId>
                 <artifactId>hibernate-entitymanager</artifactId>
                 <version>${hibernate.version}</version>
@@ -124,21 +144,15 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
+                <groupId>org.apache.aries.jpa</groupId>
+                <artifactId>org.apache.aries.jpa.support</artifactId>
+                <version>${aries.jpa.version}</version>
+                <scope>test</scope>
+            </dependency>
+            <dependency>
                 <groupId>com.github.database-rider</groupId>
                 <artifactId>rider-core</artifactId>
                 <version>${database-rider.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.assertj</groupId>
-                <artifactId>assertj-core</artifactId>
-                <version>${assertj.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.mockito</groupId>
-                <artifactId>mockito-core</artifactId>
-                <version>${mockito.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>

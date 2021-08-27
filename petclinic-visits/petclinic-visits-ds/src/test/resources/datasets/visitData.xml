@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <visits id="1" pet_id="1" visit_date="2013-01-01" description="rabies shot" />
+    <visits id="2" pet_id="2" visit_date="2013-01-02" description="rabies shot" />
+    <visits id="3" pet_id="2" visit_date="2013-01-03" description="neutered" />
+</dataset>

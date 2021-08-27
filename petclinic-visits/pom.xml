@@ -29,6 +29,7 @@
 
     <modules>
         <module>petclinic-visits-api</module>
+        <module>petclinic-visits-ds</module>
     </modules>
 
 </project>
