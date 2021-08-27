@@ -49,17 +49,28 @@
         <bundle>mvn:org.ops4j.pax.jdbc/pax-jdbc-mysql/${pax.jdbc.version}</bundle>
     </feature>
 
-    <feature name="petclinic-osgi-customers-api" version="${project.version}">
+    <feature name="petclinic-osgi-common-jpa" version="${project.version}">
         <feature>transaction</feature>
         <feature>jndi</feature>
         <feature>jdbc</feature>
         <feature dependency="true">aries-blueprint</feature>
         <feature version="[2,3)">jpa</feature>
         <feature version="[5,6)">hibernate</feature>
+    </feature>
+
+    <feature name="petclinic-osgi-customers-api" version="${project.version}">
+        <feature>petclinic-osgi-common-jpa</feature>
         <feature version="[6,7)">hibernate-validator</feature>
         <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-api/${project.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-visits-api" version="${project.version}">
+        <feature>petclinic-osgi-common-jpa</feature>
+        <feature version="[6,7)">hibernate-validator</feature>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-api/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-customers-blueprint" version="${project.version}">
