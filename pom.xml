@@ -57,6 +57,7 @@
         <module>petclinic-customers</module>
         <module>petclinic-itest</module>
         <module>petclinic-rest</module>
+        <module>petclinic-vets</module>
         <module>petclinic-visits</module>
     </modules>
 
