@@ -1,10 +1,14 @@
 package org.javaloong.kongmink.petclinic.visits.ds.impl.web;
 
+import org.javaloong.kongmink.petclinic.rest.RESTConstants;
 import org.javaloong.kongmink.petclinic.visits.model.Visit;
 import org.javaloong.kongmink.petclinic.visits.service.VisitService;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
+import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
 import org.osgi.service.jaxrs.whiteboard.propertytypes.JSONRequired;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationSelect;
+import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsName;
 import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsResource;
 
 import javax.validation.Valid;
@@ -13,14 +17,17 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import java.util.Collection;
-import java.util.Map;
 
 @Component(service = VisitResource.class)
 @JaxrsResource
+@JaxrsName(VisitResource.RESOURCE_NAME)
+@JaxrsApplicationSelect("(" + JaxrsWhiteboardConstants.JAX_RS_NAME + "=" + RESTConstants.JAX_RS_NAME + ")")
 @JSONRequired
 @Path("/visits")
 @Produces(MediaType.APPLICATION_JSON)
 public class VisitResource {
+
+    public static final String RESOURCE_NAME = "visit";
 
     private VisitService visitService;
 

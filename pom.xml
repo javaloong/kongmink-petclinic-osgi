@@ -33,17 +33,17 @@
         <jakarta.persistence.version>2.2.3</jakarta.persistence.version>
         <jakarta.transaction.version>1.3.3</jakarta.transaction.version>
         <jakarta.validation.version>2.0.2</jakarta.validation.version>
-        <javax.ws.rs.version>2.0.1</javax.ws.rs.version>
+        <jakarta.ws.rs.version>2.1.6</jakarta.ws.rs.version>
         <javax.el.version>3.0.0</javax.el.version>
         <cxf.version>3.4.3</cxf.version>
-        <jackson.version>2.11.4</jackson.version>
+        <jackson.version>2.12.5</jackson.version>
         <modelmapper.version>2.4.2</modelmapper.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <hibernate.version>5.4.29.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <pax.jdbc.version>1.5.0</pax.jdbc.version>
         <aries.jpa.version>2.7.2</aries.jpa.version>
-        <aries.jax.rs.version>1.0.6</aries.jax.rs.version>
+        <aries.jax.rs.version>2.0.0</aries.jax.rs.version>
         <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <h2.version>1.4.200</h2.version>
         <mysql.version>8.0.26</mysql.version>
@@ -55,8 +55,9 @@
     <modules>
         <module>petclinic-features</module>
         <module>petclinic-customers</module>
-        <module>petclinic-visits</module>
         <module>petclinic-itest</module>
+        <module>petclinic-rest</module>
+        <module>petclinic-visits</module>
     </modules>
 
     <dependencyManagement>
@@ -84,9 +85,9 @@
                 <version>${jakarta.validation.version}</version>
             </dependency>
             <dependency>
-                <groupId>javax.ws.rs</groupId>
-                <artifactId>javax.ws.rs-api</artifactId>
-                <version>${javax.ws.rs.version}</version>
+                <groupId>jakarta.ws.rs</groupId>
+                <artifactId>jakarta.ws.rs-api</artifactId>
+                <version>${jakarta.ws.rs.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.jpa</groupId>

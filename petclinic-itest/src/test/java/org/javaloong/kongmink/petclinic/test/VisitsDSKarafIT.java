@@ -38,13 +38,14 @@ public class VisitsDSKarafIT extends KarafTestSupport {
                         maven().groupId("org.javaloong.kongmink").artifactId("petclinic-osgi-features")
                                 .type("xml").classifier("features").versionAsInProject()),
                 // bundles
-                mavenBundle().groupId("javax.ws.rs").artifactId("javax.ws.rs-api").versionAsInProject()
+                mavenBundle().groupId("org.apache.aries.spec").artifactId("org.apache.aries.javax.jax.rs-api")
+                        .version("1.0.1")
         };
         return Stream.of(super.config(), options).flatMap(Stream::of).toArray(Option[]::new);
     }
 
     private String getLocation() throws Exception {
-        return "http://localhost:" + getHttpPort() + "/";
+        return "http://localhost:" + getHttpPort() + "/api/";
     }
 
     @Test
