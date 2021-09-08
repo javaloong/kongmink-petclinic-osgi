@@ -15,6 +15,8 @@
  */
 package org.javaloong.kongmink.petclinic.vets.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.xml.bind.annotation.XmlElement;
@@ -89,11 +91,16 @@ public class Vet {
         return Collections.unmodifiableList(sortedSpecs);
     }
 
+    @JsonIgnore
     public int getNrOfSpecialties() {
         return getSpecialtiesInternal().size();
     }
 
     public void addSpecialty(Specialty specialty) {
         getSpecialtiesInternal().add(specialty);
+    }
+
+    public void clearSpecialties() {
+        getSpecialtiesInternal().clear();
     }
 }

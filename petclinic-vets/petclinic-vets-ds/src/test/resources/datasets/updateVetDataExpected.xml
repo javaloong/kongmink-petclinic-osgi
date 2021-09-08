@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <vets id="1" first_name="James" last_name="Carter2" />
+
+    <vet_specialties vet_id="1" specialty_id="1" />
+</dataset>

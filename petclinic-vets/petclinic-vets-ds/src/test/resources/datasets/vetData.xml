@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <vets id="1" first_name="James" last_name="Carter" />
+    <vets id="2" first_name="Helen" last_name="Leary" />
+    <vets id="3" first_name="Linda" last_name="Douglas" />
+    
+    <specialties id="1" name="radiology" />
+    <specialties id="2" name="surgery" />
+    <specialties id="3" name="dentistry" />
+    
+    <vet_specialties vet_id="2" specialty_id="1" />
+    <vet_specialties vet_id="3" specialty_id="2" />
+    <vet_specialties vet_id="3" specialty_id="3" />
+</dataset>

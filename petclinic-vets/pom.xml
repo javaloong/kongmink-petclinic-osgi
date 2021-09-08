@@ -29,6 +29,7 @@
 
 	<modules>
         <module>petclinic-vets-api</module>
+        <module>petclinic-vets-ds</module>
     </modules>
-	
+
 </project>
