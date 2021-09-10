@@ -67,6 +67,13 @@
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-api/${project.version}</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-vets-api" version="${project.version}">
+        <feature>petclinic-osgi-jpa-common</feature>
+        <feature version="[6,7)">hibernate-validator</feature>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-vets-api/${project.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-visits-api" version="${project.version}">
         <feature>petclinic-osgi-jpa-common</feature>
         <feature version="[6,7)">hibernate-validator</feature>
