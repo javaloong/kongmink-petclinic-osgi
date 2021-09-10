@@ -2,11 +2,14 @@ package org.javaloong.kongmink.petclinic.test;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.apache.karaf.itests.KarafTestSupport;
-import org.javaloong.kongmink.petclinic.visits.model.Visit;
-import org.javaloong.kongmink.petclinic.visits.service.VisitService;
+import org.javaloong.kongmink.petclinic.vets.model.Specialty;
+import org.javaloong.kongmink.petclinic.vets.model.Vet;
+import org.javaloong.kongmink.petclinic.vets.service.SpecialtyService;
+import org.javaloong.kongmink.petclinic.vets.service.VetService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
+import org.ops4j.pax.exam.CoreOptions;
 import org.ops4j.pax.exam.Option;
 import org.ops4j.pax.exam.junit.PaxExam;
 import org.ops4j.pax.exam.karaf.options.KarafDistributionOption;
@@ -18,17 +21,15 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.MediaType;
 import java.util.Collection;
-import java.util.Date;
 import java.util.stream.Stream;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
 import static org.ops4j.pax.exam.CoreOptions.maven;
-import static org.ops4j.pax.exam.CoreOptions.mavenBundle;
 
 @RunWith(PaxExam.class)
 @ExamReactorStrategy(PerClass.class)
-public class VisitsDSKarafIT extends KarafTestSupport {
+public class VetsDSKarafIT extends KarafTestSupport {
 
     @Configuration
     public Option[] config() {
@@ -38,8 +39,7 @@ public class VisitsDSKarafIT extends KarafTestSupport {
                         maven().groupId("org.javaloong.kongmink").artifactId("petclinic-osgi-features")
                                 .type("xml").classifier("features").versionAsInProject()),
                 // bundles
-                mavenBundle().groupId("org.apache.aries.spec").artifactId("org.apache.aries.javax.jax.rs-api")
-                        .version("1.0.1")
+                CoreOptions.mavenBundle().groupId("org.apache.aries.spec").artifactId("org.apache.aries.javax.jax.rs-api").version("1.0.1")
         };
         return Stream.of(super.config(), options).flatMap(Stream::of).toArray(Option[]::new);
     }
@@ -52,35 +52,45 @@ public class VisitsDSKarafIT extends KarafTestSupport {
     public void test() throws Exception {
         // install features
         installAndAssertFeature("petclinic-osgi-datasource-h2");
-        installAndAssertFeature("petclinic-osgi-visits-api");
-        installAndAssertFeature("petclinic-osgi-visits-ds");
+        installAndAssertFeature("petclinic-osgi-vets-api");
+        installAndAssertFeature("petclinic-osgi-vets-ds");
 
         // check the provider service
-        assertServiceAvailable(VisitService.class);
+        assertServiceAvailable(VetService.class);
+        assertServiceAvailable(SpecialtyService.class);
 
-        // get the visit service
-        VisitService visitService = getOsgiService(VisitService.class);
+        // get the specialty service
+        SpecialtyService specialtyService = getOsgiService(SpecialtyService.class);
 
-        // use the visit service and assert state or result
-        assertThat(visitService.findAllVisits(), hasSize(0));
-        Visit visit = new Visit();
-        visit.setDate(new Date());
-        visit.setDescription("hello");
-        visit.setPetId(1);
-        visitService.saveVisit(visit);
+        // use the specialty service and assert state or result
+        assertThat(specialtyService.findAllSpecialties(), hasSize(0));
+        Specialty specialty = new Specialty();
+        specialty.setName("xxx");
+        specialtyService.saveSpecialty(specialty);
 
-        // use the visit resource and assert state or result
+        // get the vet service
+        VetService vetService = getOsgiService(VetService.class);
+
+        // use the vet service and assert state or result
+        assertThat(vetService.findAllVets(), hasSize(0));
+        Vet vet = new Vet();
+        vet.setFirstName("fn1");
+        vet.setLastName("ln1");
+        vet.addSpecialty(specialty);
+        vetService.saveVet(vet);
+
+        // use the vet resource and assert state or result
         ClientBuilder clientBuilder = getOsgiService(ClientBuilder.class);
         WebTarget webTarget = clientBuilder.build()
                 .register(new JacksonJsonProvider())
                 .target(getLocation());
-        Collection<Visit> visits = webTarget
-                .path("/visits")
+        Collection<Vet> vets = webTarget
+                .path("/vets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
-                .get(new GenericType<Collection<Visit>>() {});
-        assertThat(visits, hasSize(1));
-        assertThat(visits, hasItem(anyOf(hasProperty("description", is("hello")),
-                hasProperty("petId", is(1)))));
+                .get(new GenericType<Collection<Vet>>() {});
+        assertThat(vets, hasSize(1));
+        assertThat(vets, hasItem(anyOf(hasProperty("firstName", is("fn1")),
+                hasProperty("specialties", hasItem(hasProperty("id", is(1)))))));
     }
 }
