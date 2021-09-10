@@ -41,7 +41,7 @@
         </dependency>
         <dependency>
             <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-customers-blueprint</artifactId>
+            <artifactId>petclinic-osgi-customers-ds</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
