@@ -121,6 +121,12 @@
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest/${project.version}</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-vets-ds" version="${project.version}">
+        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
+        <feature version="${project.version}">petclinic-osgi-vets-api</feature>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-vets-ds/${project.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-visits-ds" version="${project.version}">
         <feature version="${project.version}">petclinic-osgi-rest-common</feature>
         <feature version="${project.version}">petclinic-osgi-visits-api</feature>
