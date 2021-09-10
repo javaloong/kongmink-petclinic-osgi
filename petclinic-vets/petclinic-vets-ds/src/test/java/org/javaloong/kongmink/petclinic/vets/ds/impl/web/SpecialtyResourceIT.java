@@ -4,10 +4,9 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.CompareOperation;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.vets.impl.service.VetServiceImpl;
-import org.javaloong.kongmink.petclinic.vets.impl.web.VetResource;
+import org.javaloong.kongmink.petclinic.vets.impl.service.SpecialtyServiceImpl;
+import org.javaloong.kongmink.petclinic.vets.impl.web.SpecialtyResource;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
-import org.javaloong.kongmink.petclinic.vets.model.Vet;
 import org.junit.ClassRule;
 import org.junit.Test;
 
@@ -22,15 +21,15 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DBUnit(mergeDataSets = true)
 @DataSet(value = {"vetData.xml"})
-public class VetResourceIT extends WebResourceTestSupport {
+public class SpecialtyResourceIT extends WebResourceTestSupport {
 
     @ClassRule
-    public static JaxrsServerProvider<VetResource> server = JaxrsServerProvider
-            .jaxrsServer(VetResource.class, () -> {
-                VetServiceImpl vetService = new VetServiceImpl();
-                vetService.setJpaTemplate(jpaTemplateSpy());
-                VetResource resource = new VetResource();
-                resource.setVetService(vetService);
+    public static JaxrsServerProvider<SpecialtyResource> server = JaxrsServerProvider
+            .jaxrsServer(SpecialtyResource.class, () -> {
+                SpecialtyServiceImpl specialtyService = new SpecialtyServiceImpl();
+                specialtyService.setJpaTemplate(jpaTemplateSpy());
+                SpecialtyResource resource = new SpecialtyResource();
+                resource.setSpecialtyService(specialtyService);
                 return resource;
             })
             .withProvider(jacksonJsonProvider())
@@ -38,51 +37,42 @@ public class VetResourceIT extends WebResourceTestSupport {
 
     @Test
     @DataSet(transactional = true)
-    @ExpectedDataSet(value = "createVetDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
-    public void addVet_ShouldAddVetAndReturnHttpStatusCreated() {
-        Vet vet = new Vet();
-        vet.setFirstName("Leo");
-        vet.setLastName("xxx");
+    @ExpectedDataSet(value = "createSpecialtyDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
+    public void addSpecialty_ShouldAddSpecialtyAndReturnHttpStatusCreated() {
         Specialty specialty = new Specialty();
-        specialty.setId(1);
-        vet.addSpecialty(specialty);
+        specialty.setName("xxx");
 
         Response response = target(server.baseUrl())
-                .path("/vets")
+                .path("/specialties")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
-                .post(Entity.json(vet));
+                .post(Entity.json(specialty));
 
         assertThat(response.getStatus()).isEqualTo(Status.CREATED.getStatusCode());
     }
 
     @Test
     @DataSet(transactional = true)
-    @ExpectedDataSet(value = "updateVetDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
-    public void updateVet_ShouldReturnHttpStatusOk() {
-        Vet vet = new Vet();
-        vet.setId(1);
-        vet.setFirstName("James");
-        vet.setLastName("Carter2");
+    @ExpectedDataSet(value = "updateSpecialtyDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
+    public void updateSpecialty_ShouldReturnHttpStatusOk() {
         Specialty specialty = new Specialty();
-        specialty.setId(1);
-        vet.addSpecialty(specialty);
+        specialty.setName("radiology1");
 
         Response response = target(server.baseUrl())
-                .path("/vets/{vetId}")
-                .resolveTemplate("vetId", 1)
+                .path("/specialties/{specialtyId}")
+                .resolveTemplate("specialtyId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
-                .put(Entity.json(vet));
+                .put(Entity.json(specialty));
 
         assertThat(response.getStatus()).isEqualTo(Status.NO_CONTENT.getStatusCode());
     }
 
     @Test
-    public void getVet_VetNotFound_ShouldReturnHttpStatusNotFound() {
+    public void getSpecialty_SpecialtyNotFound_ShouldReturnHttpStatusNotFound() {
         Response response = target(server.baseUrl())
-                .path("/vets/{vetId}")
-                .resolveTemplate("vetId", 0)
+                .path("/specialties/{specialtyId}")
+                .resolveTemplate("specialtyId", 0)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
@@ -91,30 +81,29 @@ public class VetResourceIT extends WebResourceTestSupport {
     }
 
     @Test
-    public void getVet_VetFound_ShouldReturnFoundVet() {
+    public void getSpecialty_SpecialtyFound_ShouldReturnFoundSpecialty() {
         Response response = target(server.baseUrl())
-                .path("/vets/{vetId}")
-                .resolveTemplate("vetId", 1)
+                .path("/specialties/{specialtyId}")
+                .resolveTemplate("specialtyId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
         assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
-        Vet vet = response.readEntity(Vet.class);
-        assertThat(vet).isNotNull().matches(
-                p -> p.getFirstName().equals("James") && p.getLastName().equals("Carter"));
+        Specialty specialty = response.readEntity(Specialty.class);
+        assertThat(specialty).isNotNull().matches(p -> p.getName().equals("radiology"));
     }
 
     @Test
-    public void getVets_VetsFound_ShouldReturnFoundVets() {
+    public void getSpecialties_SpecialtiesFound_ShouldReturnFoundSpecialties() {
         Response response = target(server.baseUrl())
-                .path("/vets")
+                .path("/specialties")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
         assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
-        Collection<Vet> vets = response.readEntity(new GenericType<Collection<Vet>>() {});
-        assertThat(vets).hasSize(3);
+        Collection<Specialty> specialties = response.readEntity(new GenericType<Collection<Specialty>>() {});
+        assertThat(specialties).hasSize(3);
     }
 }
