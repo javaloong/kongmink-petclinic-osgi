@@ -1,4 +1,4 @@
-package org.javaloong.kongmink.petclinic.vets.impl.service;
+package org.javaloong.kongmink.petclinic.vets.internal.service;
 
 import org.apache.aries.jpa.template.JpaTemplate;
 import org.apache.aries.jpa.template.TransactionType;

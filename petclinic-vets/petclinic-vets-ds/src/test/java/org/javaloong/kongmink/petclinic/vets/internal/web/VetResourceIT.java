@@ -1,11 +1,10 @@
-package org.javaloong.kongmink.petclinic.vets.ds.impl.web;
+package org.javaloong.kongmink.petclinic.vets.internal.web;
 
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.CompareOperation;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.vets.impl.service.VetServiceImpl;
-import org.javaloong.kongmink.petclinic.vets.impl.web.VetResource;
+import org.javaloong.kongmink.petclinic.vets.internal.service.VetServiceImpl;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
 import org.javaloong.kongmink.petclinic.vets.model.Vet;
 import org.junit.ClassRule;

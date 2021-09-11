@@ -1,4 +1,4 @@
-package org.javaloong.kongmink.petclinic.vets.impl.web;
+package org.javaloong.kongmink.petclinic.vets.internal.web;
 
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;

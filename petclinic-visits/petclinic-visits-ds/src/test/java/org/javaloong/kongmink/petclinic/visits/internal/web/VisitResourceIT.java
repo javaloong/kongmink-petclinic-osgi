@@ -1,9 +1,9 @@
-package org.javaloong.kongmink.petclinic.visits.ds.impl.web;
+package org.javaloong.kongmink.petclinic.visits.internal.web;
 
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.visits.ds.impl.service.VisitServiceImpl;
+import org.javaloong.kongmink.petclinic.visits.internal.service.VisitServiceImpl;
 import org.javaloong.kongmink.petclinic.visits.model.Visit;
 import org.junit.ClassRule;
 import org.junit.Test;

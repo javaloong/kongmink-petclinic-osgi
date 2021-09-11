@@ -1,4 +1,4 @@
-package org.javaloong.kongmink.petclinic.vets.ds.impl.web;
+package org.javaloong.kongmink.petclinic.vets.internal.web;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;

@@ -1,4 +1,4 @@
-package org.javaloong.kongmink.petclinic.visits.ds.impl.web;
+package org.javaloong.kongmink.petclinic.visits.internal.web;
 
 import org.apache.cxf.endpoint.Server;
 import org.apache.cxf.ext.logging.LoggingFeature;
