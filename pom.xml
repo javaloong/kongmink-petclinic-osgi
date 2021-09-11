@@ -43,7 +43,7 @@
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <pax.jdbc.version>1.5.0</pax.jdbc.version>
         <aries.jpa.version>2.7.2</aries.jpa.version>
-        <aries.jax.rs.version>2.0.0</aries.jax.rs.version>
+        <aries.jax.rs.version>2.0.1</aries.jax.rs.version>
         <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <h2.version>1.4.200</h2.version>
         <mysql.version>8.0.26</mysql.version>
