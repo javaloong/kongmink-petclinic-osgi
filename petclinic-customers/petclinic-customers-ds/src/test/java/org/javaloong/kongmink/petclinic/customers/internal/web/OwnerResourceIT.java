@@ -29,10 +29,7 @@ public class OwnerResourceIT extends WebResourceTestSupport {
             .jaxrsServer(OwnerResource.class, () -> {
                 OwnerServiceImpl ownerService = new OwnerServiceImpl();
                 ownerService.setJpaTemplate(jpaTemplateSpy());
-                OwnerResource resource = new OwnerResource();
-                resource.setOwnerService(ownerService);
-                resource.setBeanMapper(new ModelMapperBeanMapper());
-                return resource;
+                return new OwnerResource(ownerService, new ModelMapperBeanMapper());
             })
             .withProvider(jacksonJsonProvider())
             .withProvider(validationExceptionMapper());

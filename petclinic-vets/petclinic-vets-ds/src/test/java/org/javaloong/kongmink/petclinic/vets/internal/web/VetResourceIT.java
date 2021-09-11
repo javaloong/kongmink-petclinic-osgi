@@ -1,3 +1,18 @@
+/*
+ * Copyright 2012-2021 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
 package org.javaloong.kongmink.petclinic.vets.internal.web;
 
 import com.github.database.rider.core.api.configuration.DBUnit;
@@ -28,9 +43,7 @@ public class VetResourceIT extends WebResourceTestSupport {
             .jaxrsServer(VetResource.class, () -> {
                 VetServiceImpl vetService = new VetServiceImpl();
                 vetService.setJpaTemplate(jpaTemplateSpy());
-                VetResource resource = new VetResource();
-                resource.setVetService(vetService);
-                return resource;
+                return new VetResource(vetService);
             })
             .withProvider(jacksonJsonProvider())
             .withProvider(validationExceptionMapper());
@@ -113,7 +126,8 @@ public class VetResourceIT extends WebResourceTestSupport {
                 .get();
 
         assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
-        Collection<Vet> vets = response.readEntity(new GenericType<Collection<Vet>>() {});
+        Collection<Vet> vets = response.readEntity(new GenericType<Collection<Vet>>() {
+        });
         assertThat(vets).hasSize(3);
     }
 }

@@ -1,5 +1,5 @@
 /*
- * Copyright 2012-2019 the original author or authors.
+ * Copyright 2012-2021 the original author or authors.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,6 +19,7 @@ import org.javaloong.kongmink.petclinic.customers.internal.util.BeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Owner;
 import org.javaloong.kongmink.petclinic.customers.service.OwnerService;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
+import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.component.annotations.Reference;
 import org.osgi.service.jaxrs.whiteboard.JaxrsWhiteboardConstants;
@@ -46,8 +47,14 @@ public class OwnerResource {
 
     public static final String RESOURCE_NAME = "owner";
 
-    private OwnerService ownerService;
-    private BeanMapper beanMapper;
+    private final OwnerService ownerService;
+    private final BeanMapper beanMapper;
+
+    @Activate
+    public OwnerResource(@Reference OwnerService ownerService, @Reference BeanMapper beanMapper) {
+        this.ownerService = ownerService;
+        this.beanMapper = beanMapper;
+    }
 
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -113,15 +120,5 @@ public class OwnerResource {
             return Response.status(Status.NOT_FOUND).build();
         }
         return Response.ok(owners).status(Status.OK).build();
-    }
-
-    @Reference
-    public void setOwnerService(OwnerService ownerService) {
-        this.ownerService = ownerService;
-    }
-
-    @Reference
-    public void setBeanMapper(BeanMapper beanMapper) {
-        this.beanMapper = beanMapper;
     }
 }

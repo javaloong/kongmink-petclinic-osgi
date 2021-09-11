@@ -32,10 +32,7 @@ public class PetResourceIT extends WebResourceTestSupport {
             .jaxrsServer(PetResource.class, () -> {
                 PetServiceImpl petService = new PetServiceImpl();
                 petService.setJpaTemplate(jpaTemplateSpy());
-                PetResource resource = new PetResource();
-                resource.setPetService(petService);
-                resource.setBeanMapper(new ModelMapperBeanMapper());
-                return resource;
+                return new PetResource(petService, new ModelMapperBeanMapper());
             })
             .withProvider(jacksonJsonProvider())
             .withProvider(validationExceptionMapper());
