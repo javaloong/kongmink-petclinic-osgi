@@ -81,18 +81,16 @@
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-api/${project.version}</bundle>
     </feature>
 
-    <feature name="petclinic-osgi-jax-rs-whiteboard-jackson" version="${project.version}">
-        <config name="org.apache.aries.jax.rs.jackson">
-            osgi.jaxrs.application.select="(!(jackson.json=false))"
-        </config>
+    <feature name="petclinic-osgi-jackson" version="${project.version}">
         <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+        <bundle dependency="true">mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.datatype/jackson-datatype-jsr310/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
         <bundle dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
-        <bundle>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.jackson/${aries.jax.rs.version}</bundle>
+        <bundle dependency="true">mvn:org.yaml/snakeyaml/${snakeyaml.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-jax-rs-whiteboard" version="${project.version}">
@@ -103,10 +101,36 @@
         <bundle dependency="true">mvn:org.apache.aries.component-dsl/org.apache.aries.component-dsl.component-dsl/1.2.2</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-jax-rs-whiteboard-jackson" version="${project.version}">
+        <config name="org.apache.aries.jax.rs.jackson">
+            osgi.jaxrs.application.select="(!(jackson.json=false))"
+        </config>
+        <feature>petclinic-osgi-jackson</feature>
+        <bundle>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.jackson/${aries.jax.rs.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-jax-rs-whiteboard-openapi" version="${project.version}">
+        <bundle dependency="true">mvn:jakarta.validation/jakarta.validation-api/${jakarta.validation.version}</bundle>
+        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
+        <bundle dependency="true">mvn:io.github.classgraph/classgraph/${classgraph.version}</bundle>
+        <bundle dependency="true">mvn:io.swagger.core.v3/swagger-annotations/${swagger.v3.version}</bundle>
+        <bundle dependency="true">mvn:io.swagger.core.v3/swagger-models/${swagger.v3.version}</bundle>
+        <bundle dependency="true">mvn:io.swagger.core.v3/swagger-core/${swagger.v3.version}</bundle>
+        <bundle dependency="true">mvn:io.swagger.core.v3/swagger-integration/${swagger.v3.version}</bundle>
+        <bundle dependency="true">mvn:io.swagger.core.v3/swagger-jaxrs2/${swagger.v3.version}</bundle>
+        <bundle>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.openapi.resource/${aries.jax.rs.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-rest-common" version="${project.version}">
         <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard</feature>
         <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard-jackson</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest/${project.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-rest-openapi" version="${project.version}">
+        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
+        <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard-openapi</feature>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-openapi/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-customers-ds" version="${project.version}">
