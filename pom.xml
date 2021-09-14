@@ -37,6 +37,7 @@
         <javax.el.version>3.0.0</javax.el.version>
         <cxf.version>3.4.3</cxf.version>
         <jackson.version>2.12.5</jackson.version>
+        <snakeyaml.version>1.27</snakeyaml.version>
         <modelmapper.version>2.4.2</modelmapper.version>
         <commons-lang3.version>3.11</commons-lang3.version>
         <hibernate.version>5.4.29.Final</hibernate.version>
@@ -44,6 +45,8 @@
         <pax.jdbc.version>1.5.0</pax.jdbc.version>
         <aries.jpa.version>2.7.2</aries.jpa.version>
         <aries.jax.rs.version>2.0.1</aries.jax.rs.version>
+        <classgraph.version>4.8.95</classgraph.version>
+        <swagger.v3.version>2.1.9</swagger.v3.version>
         <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <h2.version>1.4.200</h2.version>
         <mysql.version>8.0.26</mysql.version>
@@ -57,6 +60,7 @@
         <module>petclinic-customers</module>
         <module>petclinic-itest</module>
         <module>petclinic-rest</module>
+        <module>petclinic-rest-openapi</module>
         <module>petclinic-vets</module>
         <module>petclinic-visits</module>
     </modules>
@@ -89,6 +93,11 @@
                 <groupId>jakarta.ws.rs</groupId>
                 <artifactId>jakarta.ws.rs-api</artifactId>
                 <version>${jakarta.ws.rs.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>io.swagger.core.v3</groupId>
+                <artifactId>swagger-jaxrs2</artifactId>
+                <version>${swagger.v3.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.aries.jpa</groupId>
