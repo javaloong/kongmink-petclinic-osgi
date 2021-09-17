@@ -15,6 +15,8 @@
  */
 package org.javaloong.kongmink.petclinic.customers.internal.web;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.javaloong.kongmink.petclinic.customers.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.customers.internal.util.BeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Owner;
 import org.javaloong.kongmink.petclinic.customers.service.OwnerService;
@@ -64,6 +66,7 @@ public class OwnerResource {
         return Response.ok(owner).status(Status.CREATED).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/{ownerId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
@@ -77,6 +80,7 @@ public class OwnerResource {
         return Response.status(Status.NO_CONTENT).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/{ownerId}")
     @DELETE
     public Response deleteOwner(@PathParam("ownerId") int ownerId) {
@@ -88,6 +92,7 @@ public class OwnerResource {
         return Response.status(Status.NO_CONTENT).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @GET
     @Path("/{ownerId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -99,6 +104,7 @@ public class OwnerResource {
         return Response.ok(owner).status(Status.OK).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @GET
     @Path("/")
     public Response getOwners() {
@@ -109,6 +115,7 @@ public class OwnerResource {
         return Response.ok(owners).status(Status.OK).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @GET
     @Path("/*/lastname/{lastName}")
     public Response getOwnersList(@PathParam("lastName") String ownerLastName) {

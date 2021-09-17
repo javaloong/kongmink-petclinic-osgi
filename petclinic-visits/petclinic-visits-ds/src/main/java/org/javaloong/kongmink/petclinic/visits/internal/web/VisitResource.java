@@ -15,7 +15,9 @@
  */
 package org.javaloong.kongmink.petclinic.visits.internal.web;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
+import org.javaloong.kongmink.petclinic.visits.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.visits.model.Visit;
 import org.javaloong.kongmink.petclinic.visits.service.VisitService;
 import org.osgi.service.component.annotations.Activate;
@@ -52,6 +54,7 @@ public class VisitResource {
         this.visitService = visitService;
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,6 +63,7 @@ public class VisitResource {
         return Response.status(Status.CREATED).entity(visit).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @PUT
     @Path("/{visitId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,6 +77,7 @@ public class VisitResource {
         return Response.noContent().entity(currentVisit).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @DELETE
     @Path("/{visitId}")
     public Response deleteVisit(@PathParam("visitId") int visitId) {
@@ -84,6 +89,7 @@ public class VisitResource {
         return Response.noContent().build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @GET
     @Path("/{visitId}")
     public Response getVisit(@PathParam("visitId") int visitId) {
@@ -94,6 +100,7 @@ public class VisitResource {
         return Response.ok(visit).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @GET
     @Path("")
     public Response getAllVisits() {

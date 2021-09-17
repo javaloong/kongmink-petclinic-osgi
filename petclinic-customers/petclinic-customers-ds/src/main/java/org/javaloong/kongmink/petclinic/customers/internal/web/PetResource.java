@@ -15,6 +15,8 @@
  */
 package org.javaloong.kongmink.petclinic.customers.internal.web;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
+import org.javaloong.kongmink.petclinic.customers.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.customers.internal.util.BeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Pet;
 import org.javaloong.kongmink.petclinic.customers.service.PetService;
@@ -56,12 +58,14 @@ public class PetResource {
         this.beanMapper = beanMapper;
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/pettypes")
     @GET
     public Response getPetTypes() {
         return Response.ok(this.petService.findPetTypes()).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/")
     @Consumes(MediaType.APPLICATION_JSON)
     @POST
@@ -70,6 +74,7 @@ public class PetResource {
         return Response.status(Status.CREATED).entity(pet).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/{petId}")
     @Consumes(MediaType.APPLICATION_JSON)
     @PUT
@@ -83,6 +88,7 @@ public class PetResource {
         return Response.noContent().entity(pet).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/{petId}")
     @DELETE
     public Response deletePet(@PathParam("petId") int petId) {
@@ -94,6 +100,7 @@ public class PetResource {
         return Response.noContent().build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/{petId}")
     @GET
     public Response getPet(@PathParam("petId") int petId) {
@@ -104,6 +111,7 @@ public class PetResource {
         return Response.ok(pet).build();
     }
 
+    @RequiresRoles(Roles.OWNER_ADMIN)
     @Path("/")
     @GET
     public Response getPets() {

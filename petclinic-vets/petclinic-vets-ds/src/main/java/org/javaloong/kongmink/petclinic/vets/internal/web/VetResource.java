@@ -15,7 +15,9 @@
  */
 package org.javaloong.kongmink.petclinic.vets.internal.web;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
+import org.javaloong.kongmink.petclinic.vets.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
 import org.javaloong.kongmink.petclinic.vets.model.Vet;
 import org.javaloong.kongmink.petclinic.vets.service.VetService;
@@ -53,6 +55,7 @@ public class VetResource {
         this.vetService = vetService;
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -61,6 +64,7 @@ public class VetResource {
         return Response.status(Status.CREATED).entity(vet).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @PUT
     @Path("/{vetId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -79,6 +83,7 @@ public class VetResource {
         return Response.noContent().entity(currentVet).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @DELETE
     @Path("/{vetId}")
     public Response deleteVet(@PathParam("vetId") int vetId) {
@@ -90,6 +95,7 @@ public class VetResource {
         return Response.noContent().build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @GET
     @Path("/{vetId}")
     public Response getVet(@PathParam("vetId") int vetId) {
@@ -100,6 +106,7 @@ public class VetResource {
         return Response.ok(vet).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @GET
     @Path("")
     public Response getAllVets() {

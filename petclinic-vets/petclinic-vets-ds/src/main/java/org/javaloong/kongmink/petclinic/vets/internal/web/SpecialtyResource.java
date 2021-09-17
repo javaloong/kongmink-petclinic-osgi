@@ -15,7 +15,9 @@
  */
 package org.javaloong.kongmink.petclinic.vets.internal.web;
 
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
+import org.javaloong.kongmink.petclinic.vets.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
 import org.javaloong.kongmink.petclinic.vets.service.SpecialtyService;
 import org.osgi.service.component.annotations.Activate;
@@ -52,6 +54,7 @@ public class SpecialtyResource {
         this.specialtyService = specialtyService;
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @POST
     @Path("")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -60,6 +63,7 @@ public class SpecialtyResource {
         return Response.status(Status.CREATED).entity(specialty).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @PUT
     @Path("/{specialtyId}")
     @Consumes(MediaType.APPLICATION_JSON)
@@ -73,6 +77,7 @@ public class SpecialtyResource {
         return Response.noContent().entity(currentSpecialty).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @DELETE
     @Path("/{specialtyId}")
     public Response deleteSpecialty(@PathParam("specialtyId") int specialtyId) {
@@ -84,6 +89,7 @@ public class SpecialtyResource {
         return Response.noContent().build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @GET
     @Path("/{specialtyId}")
     public Response getSpecialty(@PathParam("specialtyId") int specialtyId) {
@@ -94,6 +100,7 @@ public class SpecialtyResource {
         return Response.ok(specialty).build();
     }
 
+    @RequiresRoles(Roles.VET_ADMIN)
     @GET
     @Path("")
     public Response getAllSpecialties() {
