@@ -30,6 +30,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <karaf.version>4.3.2</karaf.version>
+        <osgi.version>7.0.0</osgi.version>
         <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <jakarta.ws.rs.version>2.1.6</jakarta.ws.rs.version>
         <jakarta.validation.version>2.0.2</jakarta.validation.version>
@@ -61,6 +62,7 @@
         <module>petclinic-customers</module>
         <module>petclinic-itest</module>
         <module>petclinic-rest</module>
+        <module>petclinic-rest-auth</module>
         <module>petclinic-rest-openapi</module>
         <module>petclinic-vets</module>
         <module>petclinic-visits</module>
@@ -74,6 +76,12 @@
                 <version>${karaf.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.osgi</groupId>
+                <artifactId>osgi.annotation</artifactId>
+                <version>${osgi.version}</version>
+                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>jakarta.ws.rs</groupId>
@@ -123,6 +131,16 @@
             <dependency>
                 <groupId>org.apache.shiro</groupId>
                 <artifactId>shiro-core</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-web</artifactId>
+                <version>${shiro.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.shiro</groupId>
+                <artifactId>shiro-jaxrs</artifactId>
                 <version>${shiro.version}</version>
             </dependency>
             <dependency>
