@@ -21,6 +21,7 @@
     <repository>mvn:org.hibernate.validator/hibernate-validator-osgi-karaf-features/${hibernate-validator.version}/xml/features</repository>
     <repository>mvn:org.apache.cxf.karaf/apache-cxf/${cxf.version}/xml/features</repository>
     <repository>mvn:org.apache.aries.jax.rs/org.apache.aries.jax.rs.features/${aries.jax.rs.version}/xml</repository>
+    <repository>mvn:org.apache.shiro/shiro-features/${shiro.version}/xml/features</repository>
 
     <feature name="petclinic-osgi-datasource-h2" version="${project.version}">
         <config name="org.ops4j.datasource-h2">
@@ -36,7 +37,7 @@
     <feature name="petclinic-osgi-datasource-mysql" version="${project.version}">
         <config name="org.ops4j.datasource-mysql">
             osgi.jdbc.driver.class=com.mysql.jdbc.Driver
-            pool = dbcp2
+            pool=dbcp2
             url=jdbc:mysql://localhost:3306/petclinic?useUnicode=true&amp;characterEncoding=UTF-8&amp;serverTimezone=UTC
             databaseName=petclinic
             dataSourceName=petclinic
@@ -122,33 +123,43 @@
     </feature>
 
     <feature name="petclinic-osgi-rest-common" version="${project.version}">
-        <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard</feature>
-        <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard-jackson</feature>
+        <feature>petclinic-osgi-jax-rs-whiteboard</feature>
+        <feature>petclinic-osgi-jax-rs-whiteboard-jackson</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-rest-openapi" version="${project.version}">
-        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
-        <feature version="${project.version}">petclinic-osgi-jax-rs-whiteboard-openapi</feature>
+        <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-jax-rs-whiteboard-openapi</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-openapi/${project.version}</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-rest-auth" version="${project.version}">
+        <feature>petclinic-osgi-rest-common</feature>
+        <feature>shiro-web</feature>
+        <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons.beanutils.version}</bundle>
+        <bundle dependency="true">mvn:commons-logging/commons-logging/${commons.logging.version}</bundle>
+        <bundle dependency="true">mvn:commons-collections/commons-collections/${commons.collection.version}</bundle>
+        <bundle dependency="true">mvn:org.apache.shiro/shiro-jaxrs/${shiro.version}</bundle>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-auth/${project.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-customers-ds" version="${project.version}">
-        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
-        <feature version="${project.version}">petclinic-osgi-customers-api</feature>
+        <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-customers-api</feature>
         <bundle dependency="true">mvn:org.modelmapper/modelmapper/${modelmapper.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-ds/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-vets-ds" version="${project.version}">
-        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
-        <feature version="${project.version}">petclinic-osgi-vets-api</feature>
+        <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-vets-api</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-vets-ds/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-visits-ds" version="${project.version}">
-        <feature version="${project.version}">petclinic-osgi-rest-common</feature>
-        <feature version="${project.version}">petclinic-osgi-visits-api</feature>
+        <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-visits-api</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-ds/${project.version}</bundle>
     </feature>
 

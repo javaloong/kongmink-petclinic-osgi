@@ -42,6 +42,9 @@
         <snakeyaml.version>1.27</snakeyaml.version>
         <modelmapper.version>2.4.2</modelmapper.version>
         <commons-lang3.version>3.11</commons-lang3.version>
+        <commons.beanutils.version>1.9.4</commons.beanutils.version>
+        <commons.collection.version>3.2.2</commons.collection.version>
+        <commons.logging.version>1.2</commons.logging.version>
         <shiro.version>1.7.1</shiro.version>
         <swagger.v3.version>2.1.9</swagger.v3.version>
         <classgraph.version>4.8.95</classgraph.version>
