@@ -135,6 +135,7 @@
     </feature>
 
     <feature name="petclinic-osgi-rest-auth" version="${project.version}">
+        <configfile finalname="${karaf.etc}/shiro.ini">mvn:org.javaloong.kongmink/petclinic-osgi-rest-auth/${project.version}/cfg/configuration</configfile>
         <feature>petclinic-osgi-rest-common</feature>
         <feature>shiro-web</feature>
         <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons.beanutils.version}</bundle>
