@@ -29,7 +29,7 @@
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
 
-        <karaf.version>4.3.2</karaf.version>
+        <karaf.version>4.3.3</karaf.version>
         <osgi.version>7.0.0</osgi.version>
         <servicemix-spec.version>2.9.0</servicemix-spec.version>
         <jakarta.ws.rs.version>2.1.6</jakarta.ws.rs.version>
