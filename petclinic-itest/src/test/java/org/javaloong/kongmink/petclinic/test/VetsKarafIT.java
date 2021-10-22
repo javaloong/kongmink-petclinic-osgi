@@ -35,7 +35,7 @@ public class VetsKarafIT extends AbstractKarafIT {
     @Configuration
     public Option[] config() {
         return OptionUtils.combine(super.config(),
-                addFeatures("petclinic-osgi-datasource-h2", "petclinic-osgi-vets-ds")
+                addFeatures("petclinic-osgi-datasource-hsqldb", "petclinic-osgi-vets-ds")
         );
     }
 
