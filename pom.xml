@@ -61,8 +61,9 @@
     </properties>
 
     <modules>
-        <module>petclinic-features</module>
+        <module>petclinic-bean-validator</module>
         <module>petclinic-customers</module>
+        <module>petclinic-features</module>
         <module>petclinic-itest</module>
         <module>petclinic-rest</module>
         <module>petclinic-rest-auth</module>
