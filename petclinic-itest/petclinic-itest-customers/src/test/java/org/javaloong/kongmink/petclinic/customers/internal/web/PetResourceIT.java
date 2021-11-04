@@ -3,12 +3,9 @@ package org.javaloong.kongmink.petclinic.customers.internal.web;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.customers.internal.service.PetServiceImpl;
-import org.javaloong.kongmink.petclinic.customers.internal.util.ModelMapperBeanMapper;
 import org.javaloong.kongmink.petclinic.customers.model.Owner;
 import org.javaloong.kongmink.petclinic.customers.model.Pet;
 import org.javaloong.kongmink.petclinic.customers.model.PetType;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -25,17 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DBUnit(mergeDataSets = true)
 @DataSet(value = {"ownerData.xml", "petData.xml"})
-public class PetResourceIT extends WebResourceTestSupport {
-
-    @ClassRule
-    public static JaxrsServerProvider<PetResource> server = JaxrsServerProvider
-            .jaxrsServer(PetResource.class, () -> {
-                PetServiceImpl petService = new PetServiceImpl();
-                petService.setJpaTemplate(jpaTemplateSpy());
-                return new PetResource(petService, new ModelMapperBeanMapper());
-            })
-            .withProvider(jacksonJsonProvider())
-            .withProvider(validationExceptionMapper());
+public class PetResourceIT extends DBUnitTestSupport {
 
     @Test
     @DataSet(transactional = true)
@@ -51,7 +38,7 @@ public class PetResourceIT extends WebResourceTestSupport {
         owner.setId(1);
         pet.setOwner(owner);
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/pets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -69,7 +56,7 @@ public class PetResourceIT extends WebResourceTestSupport {
         Map<String, Object> map = new HashMap<>();
         map.put("type", petType);
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/pets/{petId}")
                 .resolveTemplate("petId", 1)
                 .request()
@@ -81,7 +68,7 @@ public class PetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getPet_PetNotFound_ShouldReturnHttpStatusNotFound() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/pets/{petId}")
                 .resolveTemplate("petId", 0)
                 .request()
@@ -93,7 +80,7 @@ public class PetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getPet_PetFound_ShouldReturnFoundPet() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/pets/{petId}")
                 .resolveTemplate("petId", 1)
                 .request()
@@ -108,7 +95,7 @@ public class PetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getPets_PetsFound_ShouldReturnFoundPets() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/pets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
