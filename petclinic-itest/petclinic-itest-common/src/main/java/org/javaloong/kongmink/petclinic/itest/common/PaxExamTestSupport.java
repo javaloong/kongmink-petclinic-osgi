@@ -1,6 +1,20 @@
-package org.javaloong.kongmink.petclinic.customers.internal.web;
+/*
+ * Copyright 2012-2021 the original author or authors.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package org.javaloong.kongmink.petclinic.itest.common;
 
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.junit.runner.RunWith;
 import org.ops4j.pax.exam.Configuration;
 import org.ops4j.pax.exam.Option;
@@ -11,8 +25,6 @@ import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
 
 import javax.inject.Inject;
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
 import java.io.File;
 
 import static org.ops4j.pax.exam.Constants.START_LEVEL_SYSTEM_BUNDLES;
@@ -24,10 +36,7 @@ import static org.ops4j.pax.exam.cm.ConfigurationAdminOptions.configurationFolde
 public abstract class PaxExamTestSupport {
 
     @Inject
-    BundleContext context;
-
-    @Inject
-    ClientBuilder clientBuilder;
+    BundleContext bundleContext;
 
     public static <T> T getService(BundleContext bundleContext, Class<T> type) {
         ServiceReference<T> serviceReference = bundleContext.getServiceReference(type);
@@ -35,17 +44,7 @@ public abstract class PaxExamTestSupport {
     }
 
     public <T> T getService(Class<T> type) {
-        return getService(context, type);
-    }
-
-    public WebTarget webTarget() {
-        return webTarget("http://localhost:8080/api/");
-    }
-
-    public WebTarget webTarget(String uri) {
-        return clientBuilder.build()
-                .register(new JacksonJsonProvider())
-                .target(uri);
+        return getService(bundleContext, type);
     }
 
     @Configuration
@@ -78,7 +77,6 @@ public abstract class PaxExamTestSupport {
                 workingDirectory("target/pax-exam"),
                 logback(),
                 junit(),
-                dbUnit(),
                 configurationFolder(new File("src/test/resources/config"))
         );
     }
@@ -99,27 +97,7 @@ public abstract class PaxExamTestSupport {
         );
     }
 
-    protected Option dbUnit() {
-        return composite(
-                mavenBundle("commons-collections", "commons-collections").versionAsInProject(),
-                wrappedBundle(mavenBundle("org.dbunit", "dbunit").versionAsInProject()),
-                wrappedBundle(mavenBundle("com.github.database-rider", "rider-core").versionAsInProject())
-        );
-    }
-
-    protected Option testBundles() {
-        return composite(
-                mavenBundle("org.apache.geronimo.specs", "geronimo-validation_2.0_spec", "1.1"),
-                mavenBundle("org.glassfish", "jakarta.el").versionAsInProject(),
-                mavenBundle("org.apache.commons", "commons-lang3").versionAsInProject(),
-                mavenBundle("org.modelmapper", "modelmapper").versionAsInProject(),
-
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-bean-validator").versionAsInProject(),
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-rest").versionAsInProject(),
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-customers-api").versionAsInProject(),
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-customers-ds").versionAsInProject()
-        );
-    }
+    protected abstract Option testBundles();
 
     protected Option ariesJaxRSWhiteboardJackson() {
         return composite(
@@ -242,10 +220,10 @@ public abstract class PaxExamTestSupport {
 
     protected Option hsqldb() {
         return composite(
-                systemPackage("javax.transaction;version=1.1.0"),
-                systemPackage("javax.transaction.xa;version=1.1.0"),
+                systemPackage("javax.transaction;version=1.2.0"),
+                systemPackage("javax.transaction.xa;version=1.2.0"),
                 // just for DBCP2
-                systemPackage("javax.transaction.xa;version=1.1.0;partial=true;mandatory:=partial"),
+                systemPackage("javax.transaction.xa;version=1.2.0;partial=true;mandatory:=partial"),
                 mavenBundle("org.apache.servicemix.bundles", "org.apache.servicemix.bundles.cglib", "3.3.0_1"),
                 mavenBundle("org.apache.servicemix.bundles", "org.apache.servicemix.bundles.jasypt", "1.9.3_1"),
                 mavenBundle("org.apache.commons", "commons-pool2", "2.11.1"),
@@ -256,8 +234,8 @@ public abstract class PaxExamTestSupport {
                 mavenBundle("org.ops4j.pax.jdbc", "pax-jdbc-config", "1.5.0"),
                 mavenBundle("org.ops4j.pax.jdbc", "pax-jdbc-pool-common", "1.5.0"),
                 mavenBundle("org.ops4j.pax.jdbc", "pax-jdbc-pool-dbcp2", "1.5.0"),
-                mavenBundle("org.hsqldb", "hsqldb").versionAsInProject(),
-                mavenBundle("org.osgi", "org.osgi.service.jdbc").versionAsInProject()
+                mavenBundle("org.osgi", "org.osgi.service.jdbc", "1.0.0"),
+                mavenBundle("org.hsqldb", "hsqldb").versionAsInProject()
         );
     }
 }

@@ -29,25 +29,27 @@
     <dependencies>
         <dependency>
             <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-rest</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-customers-api</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
             <artifactId>petclinic-osgi-customers-ds</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.javaloong.kongmink</groupId>
             <artifactId>petclinic-osgi-bean-validator</artifactId>
             <version>${project.version}</version>
+            <scope>test</scope>
         </dependency>
-        <!-- Test dependencies -->
+        <dependency>
+            <groupId>org.javaloong.kongmink</groupId>
+            <artifactId>petclinic-osgi-itest-common</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>jakarta.inject</groupId>
+            <artifactId>jakarta.inject-api</artifactId>
+            <scope>test</scope>
+        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -84,11 +86,6 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>jakarta.inject</groupId>
-            <artifactId>jakarta.inject-api</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>jakarta.el</artifactId>
             <scope>test</scope>
@@ -121,10 +118,6 @@
         <dependency>
             <groupId>org.apache.felix</groupId>
             <artifactId>org.apache.felix.scr</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.osgi</groupId>
-            <artifactId>org.osgi.service.jdbc</artifactId>
             <scope>test</scope>
         </dependency>
         <!-- pax exam -->

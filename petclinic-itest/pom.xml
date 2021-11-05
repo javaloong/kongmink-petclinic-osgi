@@ -28,6 +28,7 @@
     <packaging>pom</packaging>
 
     <modules>
+        <module>petclinic-itest-common</module>
         <module>petclinic-itest-customers</module>
 	    <module>petclinic-itest-karaf</module>
     </modules>

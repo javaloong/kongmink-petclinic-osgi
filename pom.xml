@@ -30,7 +30,6 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <osgi.version>7.0.0</osgi.version>
-        <osgi.service.jdbc.version>1.0.0</osgi.service.jdbc.version>
         <felix.framework.version>5.6.12</felix.framework.version>
         <felix.configadmin.version>1.9.22</felix.configadmin.version>
         <felix.coordinator.version>1.0.2</felix.coordinator.version>
@@ -300,12 +299,6 @@
                 <groupId>org.apache.felix</groupId>
                 <artifactId>org.apache.felix.scr</artifactId>
                 <version>${felix.scr.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.osgi</groupId>
-                <artifactId>org.osgi.service.jdbc</artifactId>
-                <version>${osgi.service.jdbc.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
