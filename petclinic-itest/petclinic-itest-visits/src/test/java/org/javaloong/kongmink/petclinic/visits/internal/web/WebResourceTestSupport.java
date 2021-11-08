@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package org.javaloong.kongmink.petclinic.vets.internal.web;
+package org.javaloong.kongmink.petclinic.visits.internal.web;
 
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 import org.javaloong.kongmink.petclinic.itest.common.DBUnitTestSupport;
@@ -49,8 +49,8 @@ public class WebResourceTestSupport extends DBUnitTestSupport {
 
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-bean-validator").versionAsInProject(),
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-rest").versionAsInProject(),
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-vets-api").versionAsInProject(),
-                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-vets-ds").versionAsInProject(),
+                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-visits-api").versionAsInProject(),
+                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-visits-ds").versionAsInProject(),
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-itest-common").versionAsInProject()
         );
     }

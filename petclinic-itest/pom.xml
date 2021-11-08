@@ -32,6 +32,7 @@
         <module>petclinic-itest-customers</module>
 	    <module>petclinic-itest-karaf</module>
         <module>petclinic-itest-vets</module>
+        <module>petclinic-itest-visits</module>
     </modules>
 
 </project>

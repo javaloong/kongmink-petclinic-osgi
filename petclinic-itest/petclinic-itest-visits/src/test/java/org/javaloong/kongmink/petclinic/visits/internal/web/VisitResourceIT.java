@@ -18,9 +18,7 @@ package org.javaloong.kongmink.petclinic.visits.internal.web;
 import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.visits.internal.service.VisitServiceImpl;
 import org.javaloong.kongmink.petclinic.visits.model.Visit;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -39,23 +37,13 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataSet(value = {"visitData.xml"})
 public class VisitResourceIT extends WebResourceTestSupport {
 
-    @ClassRule
-    public static JaxrsServerProvider<VisitResource> server = JaxrsServerProvider
-            .jaxrsServer(VisitResource.class, () -> {
-                VisitServiceImpl visitService = new VisitServiceImpl();
-                visitService.setJpaTemplate(jpaTemplateSpy());
-                return new VisitResource(visitService);
-            })
-            .withProvider(jacksonJsonProvider())
-            .withProvider(validationExceptionMapper());
-
     @Test
     @DataSet(transactional = true)
     public void addVisit_ShouldReturnValidationErrors() {
         Visit visit = new Visit();
         visit.setDate(new Date());
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/visits")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -73,7 +61,7 @@ public class VisitResourceIT extends WebResourceTestSupport {
         visit.setDescription("hello");
         visit.setPetId(1);
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/visits")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -84,7 +72,7 @@ public class VisitResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getVisits_VisitsFound_ShouldReturnFoundVisits() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/visits")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
