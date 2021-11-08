@@ -19,10 +19,8 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.CompareOperation;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.vets.internal.service.VetServiceImpl;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
 import org.javaloong.kongmink.petclinic.vets.model.Vet;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -38,16 +36,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataSet(value = {"vetData.xml"})
 public class VetResourceIT extends WebResourceTestSupport {
 
-    @ClassRule
-    public static JaxrsServerProvider<VetResource> server = JaxrsServerProvider
-            .jaxrsServer(VetResource.class, () -> {
-                VetServiceImpl vetService = new VetServiceImpl();
-                vetService.setJpaTemplate(jpaTemplateSpy());
-                return new VetResource(vetService);
-            })
-            .withProvider(jacksonJsonProvider())
-            .withProvider(validationExceptionMapper());
-
     @Test
     @DataSet(transactional = true)
     @ExpectedDataSet(value = "createVetDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
@@ -59,7 +47,7 @@ public class VetResourceIT extends WebResourceTestSupport {
         specialty.setId(1);
         vet.addSpecialty(specialty);
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/vets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -80,7 +68,7 @@ public class VetResourceIT extends WebResourceTestSupport {
         specialty.setId(1);
         vet.addSpecialty(specialty);
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/vets/{vetId}")
                 .resolveTemplate("vetId", 1)
                 .request()
@@ -92,7 +80,7 @@ public class VetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getVet_VetNotFound_ShouldReturnHttpStatusNotFound() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/vets/{vetId}")
                 .resolveTemplate("vetId", 0)
                 .request()
@@ -104,14 +92,14 @@ public class VetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getVet_VetFound_ShouldReturnFoundVet() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/vets/{vetId}")
                 .resolveTemplate("vetId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
-        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+        assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Vet vet = response.readEntity(Vet.class);
         assertThat(vet).isNotNull().matches(
                 p -> p.getFirstName().equals("James") && p.getLastName().equals("Carter"));
@@ -119,13 +107,13 @@ public class VetResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getVets_VetsFound_ShouldReturnFoundVets() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/vets")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
-        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+        assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Collection<Vet> vets = response.readEntity(new GenericType<Collection<Vet>>() {
         });
         assertThat(vets).hasSize(3);

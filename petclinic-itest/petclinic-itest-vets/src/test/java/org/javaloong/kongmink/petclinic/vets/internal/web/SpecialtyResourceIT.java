@@ -19,9 +19,7 @@ import com.github.database.rider.core.api.configuration.DBUnit;
 import com.github.database.rider.core.api.dataset.CompareOperation;
 import com.github.database.rider.core.api.dataset.DataSet;
 import com.github.database.rider.core.api.dataset.ExpectedDataSet;
-import org.javaloong.kongmink.petclinic.vets.internal.service.SpecialtyServiceImpl;
 import org.javaloong.kongmink.petclinic.vets.model.Specialty;
-import org.junit.ClassRule;
 import org.junit.Test;
 
 import javax.ws.rs.client.Entity;
@@ -37,16 +35,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataSet(value = {"vetData.xml"})
 public class SpecialtyResourceIT extends WebResourceTestSupport {
 
-    @ClassRule
-    public static JaxrsServerProvider<SpecialtyResource> server = JaxrsServerProvider
-            .jaxrsServer(SpecialtyResource.class, () -> {
-                SpecialtyServiceImpl specialtyService = new SpecialtyServiceImpl();
-                specialtyService.setJpaTemplate(jpaTemplateSpy());
-                return new SpecialtyResource(specialtyService);
-            })
-            .withProvider(jacksonJsonProvider())
-            .withProvider(validationExceptionMapper());
-
     @Test
     @DataSet(transactional = true)
     @ExpectedDataSet(value = "createSpecialtyDataExpected.xml", compareOperation = CompareOperation.CONTAINS)
@@ -54,7 +42,7 @@ public class SpecialtyResourceIT extends WebResourceTestSupport {
         Specialty specialty = new Specialty();
         specialty.setName("xxx");
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/specialties")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
@@ -70,7 +58,7 @@ public class SpecialtyResourceIT extends WebResourceTestSupport {
         Specialty specialty = new Specialty();
         specialty.setName("radiology1");
 
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/specialties/{specialtyId}")
                 .resolveTemplate("specialtyId", 1)
                 .request()
@@ -82,7 +70,7 @@ public class SpecialtyResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getSpecialty_SpecialtyNotFound_ShouldReturnHttpStatusNotFound() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/specialties/{specialtyId}")
                 .resolveTemplate("specialtyId", 0)
                 .request()
@@ -94,27 +82,27 @@ public class SpecialtyResourceIT extends WebResourceTestSupport {
 
     @Test
     public void getSpecialty_SpecialtyFound_ShouldReturnFoundSpecialty() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/specialties/{specialtyId}")
                 .resolveTemplate("specialtyId", 1)
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
-        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+        assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Specialty specialty = response.readEntity(Specialty.class);
         assertThat(specialty).isNotNull().matches(p -> p.getName().equals("radiology"));
     }
 
     @Test
     public void getSpecialties_SpecialtiesFound_ShouldReturnFoundSpecialties() {
-        Response response = target(server.baseUrl())
+        Response response = webTarget()
                 .path("/specialties")
                 .request()
                 .accept(MediaType.APPLICATION_JSON_TYPE)
                 .get();
 
-        assertThat(response.getStatus()).isEqualTo(Response.Status.OK.getStatusCode());
+        assertThat(response.getStatus()).isEqualTo(Status.OK.getStatusCode());
         Collection<Specialty> specialties = response.readEntity(new GenericType<Collection<Specialty>>() {
         });
         assertThat(specialties).hasSize(3);
