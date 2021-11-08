@@ -133,6 +133,7 @@
         <feature>petclinic-osgi-jax-rs-whiteboard</feature>
         <feature>petclinic-osgi-jax-rs-whiteboard-jackson</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest/${project.version}</bundle>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-core/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-rest-openapi" version="${project.version}">

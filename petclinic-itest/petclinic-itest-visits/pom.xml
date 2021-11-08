@@ -35,6 +35,12 @@
         </dependency>
         <dependency>
             <groupId>org.javaloong.kongmink</groupId>
+            <artifactId>petclinic-osgi-rest-core</artifactId>
+            <version>${project.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.javaloong.kongmink</groupId>
             <artifactId>petclinic-osgi-bean-validator</artifactId>
             <version>${project.version}</version>
             <scope>test</scope>

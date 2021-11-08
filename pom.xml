@@ -78,6 +78,7 @@
         <module>petclinic-itest</module>
         <module>petclinic-rest</module>
         <module>petclinic-rest-auth</module>
+        <module>petclinic-rest-core</module>
         <module>petclinic-rest-openapi</module>
         <module>petclinic-vets</module>
         <module>petclinic-visits</module>

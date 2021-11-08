@@ -49,8 +49,10 @@ public class WebResourceTestSupport extends DBUnitTestSupport {
 
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-bean-validator").versionAsInProject(),
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-rest").versionAsInProject(),
+                mavenBundle("org.javaloong.kongmink", "petclinic-osgi-rest-core").versionAsInProject(),
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-vets-api").versionAsInProject(),
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-vets-ds").versionAsInProject(),
+
                 mavenBundle("org.javaloong.kongmink", "petclinic-osgi-itest-common").versionAsInProject()
         );
     }
