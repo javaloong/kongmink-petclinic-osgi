@@ -53,6 +53,7 @@
         <commons.logging.version>1.2</commons.logging.version>
         <shiro.version>1.7.1</shiro.version>
         <swagger.v3.version>2.1.9</swagger.v3.version>
+        <swagger-ui.version>3.52.5</swagger-ui.version>
         <classgraph.version>4.8.95</classgraph.version>
         <aries.jax.rs.version>2.0.1</aries.jax.rs.version>
         <aries.jpa.version>2.7.2</aries.jpa.version>
@@ -80,6 +81,7 @@
         <module>petclinic-rest-auth</module>
         <module>petclinic-rest-core</module>
         <module>petclinic-rest-openapi</module>
+        <module>petclinic-rest-swagger-ui</module>
         <module>petclinic-vets</module>
         <module>petclinic-visits</module>
     </modules>

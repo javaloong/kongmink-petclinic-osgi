@@ -142,6 +142,11 @@
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-openapi/${project.version}</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-rest-swagger-ui" version="${project.version}">
+        <feature>pax-web-war</feature>
+        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-swagger-ui/${project.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-rest-auth" version="${project.version}">
         <configfile finalname="${karaf.etc}/shiro.ini">mvn:org.javaloong.kongmink/petclinic-osgi-rest-auth/${project.version}/cfg/configuration</configfile>
         <feature>petclinic-osgi-rest-common</feature>
