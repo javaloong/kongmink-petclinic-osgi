@@ -28,10 +28,6 @@
         <class>org.javaloong.kongmink.petclinic.customers.model.Owner</class>
         <class>org.javaloong.kongmink.petclinic.customers.model.Pet</class>
         <class>org.javaloong.kongmink.petclinic.customers.model.PetType</class>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-        </properties>
     </persistence-unit>
 
 </persistence>

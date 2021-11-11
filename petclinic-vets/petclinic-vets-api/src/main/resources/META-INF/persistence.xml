@@ -27,10 +27,6 @@
         <non-jta-data-source>osgi:service/javax.sql.DataSource/(osgi.jndi.service.name=petclinic)</non-jta-data-source>
         <class>org.javaloong.kongmink.petclinic.vets.model.Specialty</class>
         <class>org.javaloong.kongmink.petclinic.vets.model.Vet</class>
-        <properties>
-            <property name="hibernate.dialect" value="org.hibernate.dialect.HSQLDialect"/>
-            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-        </properties>
     </persistence-unit>
 
 </persistence>
