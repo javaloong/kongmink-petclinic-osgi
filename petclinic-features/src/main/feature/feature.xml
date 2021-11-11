@@ -64,50 +64,48 @@
     </feature>
 
     <feature name="petclinic-osgi-bean-validation" version="${project.version}">
-        <bundle>mvn:org.apache.geronimo.specs/geronimo-validation_2.0_spec/1.1</bundle>
-        <bundle>mvn:org.glassfish/jakarta.el/${jakarta.el.version}</bundle>
-        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-bean-validator/${project.version}</bundle>
+        <bundle start-level="10">mvn:org.apache.geronimo.specs/geronimo-validation_2.0_spec/1.1</bundle>
+        <bundle start-level="20">mvn:org.glassfish/jakarta.el/${jakarta.el.version}</bundle>
+        <bundle start-level="20">mvn:org.javaloong.kongmink/petclinic-osgi-bean-validator/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-customers-api" version="${project.version}">
         <feature>petclinic-osgi-jpa-common</feature>
         <feature>petclinic-osgi-bean-validation</feature>
-        <bundle dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:org.apache.commons/commons-lang3/${commons-lang3.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-customers-api/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-vets-api" version="${project.version}">
         <feature>petclinic-osgi-jpa-common</feature>
         <feature>petclinic-osgi-bean-validation</feature>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-vets-api/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-visits-api" version="${project.version}">
         <feature>petclinic-osgi-jpa-common</feature>
         <feature>petclinic-osgi-bean-validation</feature>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-api/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-jackson" version="${project.version}">
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.datatype/jackson-datatype-jsr310/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
-        <bundle dependency="true">mvn:org.yaml/snakeyaml/${snakeyaml.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-core/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-annotations/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.core/jackson-databind/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.dataformat/jackson-dataformat-yaml/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.datatype/jackson-datatype-jsr310/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-base/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.jaxrs/jackson-jaxrs-json-provider/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:com.fasterxml.jackson.module/jackson-module-jaxb-annotations/${jackson.version}</bundle>
+        <bundle start-level="35" dependency="true">mvn:org.yaml/snakeyaml/${snakeyaml.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-jax-rs-whiteboard" version="${project.version}">
         <feature>aries-jax-rs-whiteboard</feature>
         <feature version="${cxf.version}">cxf-sse</feature>
-        <bundle dependency="true">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.jaxws-api-2.2/${servicemix-spec.version}</bundle>
-        <bundle dependency="true">mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.saaj-api-1.3/${servicemix-spec.version}</bundle>
         <bundle dependency="true">mvn:org.apache.aries.component-dsl/org.apache.aries.component-dsl.component-dsl/1.2.2</bundle>
     </feature>
 
@@ -162,18 +160,23 @@
 
     <feature name="petclinic-osgi-migration-flyway" version="${project.version}">
         <feature>pax-jdbc-config</feature>
-        <bundle>mvn:org.flywaydb/flyway-core/${flyway.version}</bundle>
-        <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-migration-flyway/${project.version}</bundle>
+        <bundle start-level="75">mvn:org.flywaydb/flyway-core/${flyway.version}</bundle>
+        <bundle start-level="75">mvn:org.javaloong.kongmink/petclinic-osgi-migration-flyway/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-customers-migration" version="${project.version}">
         <feature>petclinic-osgi-migration-flyway</feature>
-        <bundle start="false">mvn:org.javaloong.kongmink/petclinic-osgi-customers-migration/${project.version}</bundle>
+        <bundle start-level="75" start="false">mvn:org.javaloong.kongmink/petclinic-osgi-customers-migration/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-vets-migration" version="${project.version}">
         <feature>petclinic-osgi-migration-flyway</feature>
-        <bundle start="false">mvn:org.javaloong.kongmink/petclinic-osgi-vets-migration/${project.version}</bundle>
+        <bundle start-level="75" start="false">mvn:org.javaloong.kongmink/petclinic-osgi-vets-migration/${project.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-visits-migration" version="${project.version}">
+        <feature>petclinic-osgi-migration-flyway</feature>
+        <bundle start-level="75" start="false">mvn:org.javaloong.kongmink/petclinic-osgi-visits-migration/${project.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-customers-ds" version="${project.version}">
@@ -193,6 +196,7 @@
 
     <feature name="petclinic-osgi-visits-ds" version="${project.version}">
         <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-visits-migration</feature>
         <feature>petclinic-osgi-visits-api</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-visits-ds/${project.version}</bundle>
     </feature>
