@@ -171,6 +171,11 @@
         <bundle start="false">mvn:org.javaloong.kongmink/petclinic-osgi-customers-migration/${project.version}</bundle>
     </feature>
 
+    <feature name="petclinic-osgi-vets-migration" version="${project.version}">
+        <feature>petclinic-osgi-migration-flyway</feature>
+        <bundle start="false">mvn:org.javaloong.kongmink/petclinic-osgi-vets-migration/${project.version}</bundle>
+    </feature>
+
     <feature name="petclinic-osgi-customers-ds" version="${project.version}">
         <feature>petclinic-osgi-rest-common</feature>
         <feature>petclinic-osgi-customers-migration</feature>
@@ -181,6 +186,7 @@
 
     <feature name="petclinic-osgi-vets-ds" version="${project.version}">
         <feature>petclinic-osgi-rest-common</feature>
+        <feature>petclinic-osgi-vets-migration</feature>
         <feature>petclinic-osgi-vets-api</feature>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-vets-ds/${project.version}</bundle>
     </feature>
