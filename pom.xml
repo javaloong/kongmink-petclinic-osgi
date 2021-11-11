@@ -64,6 +64,7 @@
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
         <mysql.version>8.0.26</mysql.version>
         <hsqldb.version>2.5.2</hsqldb.version>
+        <flyway.version>7.15.0</flyway.version>
         <junit.version>4.13.2</junit.version>
         <mockito.version>3.11.2</mockito.version>
         <assertj.version>3.20.2</assertj.version>
@@ -77,6 +78,7 @@
         <module>petclinic-customers</module>
         <module>petclinic-features</module>
         <module>petclinic-itest</module>
+        <module>petclinic-migration</module>
         <module>petclinic-rest</module>
         <module>petclinic-rest-auth</module>
         <module>petclinic-rest-core</module>
@@ -104,6 +106,30 @@
                 <groupId>org.osgi</groupId>
                 <artifactId>osgi.cmpn</artifactId>
                 <version>${osgi.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.framework</artifactId>
+                <version>${felix.framework.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.configadmin</artifactId>
+                <version>${felix.configadmin.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.coordinator</artifactId>
+                <version>${felix.coordinator.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>org.apache.felix.scr</artifactId>
+                <version>${felix.scr.version}</version>
                 <scope>provided</scope>
             </dependency>
             <dependency>
@@ -163,11 +189,6 @@
             </dependency>
             <dependency>
                 <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-core</artifactId>
-                <version>${cxf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
                 <artifactId>cxf-rt-frontend-jaxrs</artifactId>
                 <version>${cxf.version}</version>
             </dependency>
@@ -192,16 +213,25 @@
                 <version>${swagger.v3.version}</version>
             </dependency>
             <dependency>
+                <groupId>org.ops4j.pax.jdbc</groupId>
+                <artifactId>pax-jdbc-pool-common</artifactId>
+                <version>${pax.jdbc.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>org.apache.aries.jpa</groupId>
                 <artifactId>org.apache.aries.jpa.api</artifactId>
                 <version>${aries.jpa.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-core</artifactId>
+                <version>${flyway.version}</version>
             </dependency>
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
             </dependency>
-
             <!-- Test dependencies -->
             <dependency>
                 <groupId>junit</groupId>
@@ -252,56 +282,9 @@
                 <scope>test</scope>
             </dependency>
             <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-transports-http-jetty</artifactId>
-                <version>${cxf.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-features-logging</artifactId>
-                <version>${cxf.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-testutils</artifactId>
-                <version>${cxf.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.cxf</groupId>
-                <artifactId>cxf-rt-rs-client</artifactId>
-                <version>${cxf.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
                 <groupId>org.glassfish</groupId>
                 <artifactId>jakarta.el</artifactId>
                 <version>${jakarta.el.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.framework</artifactId>
-                <version>${felix.framework.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.configadmin</artifactId>
-                <version>${felix.configadmin.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.coordinator</artifactId>
-                <version>${felix.coordinator.version}</version>
-                <scope>test</scope>
-            </dependency>
-            <dependency>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>org.apache.felix.scr</artifactId>
-                <version>${felix.scr.version}</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
