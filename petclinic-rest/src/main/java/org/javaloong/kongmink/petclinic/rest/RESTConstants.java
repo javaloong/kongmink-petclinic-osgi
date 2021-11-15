@@ -23,4 +23,8 @@ package org.javaloong.kongmink.petclinic.rest;
 public class RESTConstants {
 
     public static final String JAX_RS_NAME = "api.rest";
+
+    public static final String BASE_PATH = "/api";
+
+    public static final String SECURITY_BASIC_AUTH = "basicAuth";
 }

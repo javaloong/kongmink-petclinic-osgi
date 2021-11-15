@@ -15,6 +15,7 @@
  */
 package org.javaloong.kongmink.petclinic.customers.internal.web;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.javaloong.kongmink.petclinic.customers.internal.security.Roles;
 import org.javaloong.kongmink.petclinic.customers.internal.util.BeanMapper;
@@ -43,6 +44,7 @@ import java.util.Map;
 @JaxrsName(OwnerResource.RESOURCE_NAME)
 @JaxrsApplicationSelect("(" + JaxrsWhiteboardConstants.JAX_RS_NAME + "=" + RESTConstants.JAX_RS_NAME + ")")
 @JSONRequired
+@SecurityRequirement(name = RESTConstants.SECURITY_BASIC_AUTH)
 @Path("/owners")
 @Produces(MediaType.APPLICATION_JSON)
 public class OwnerResource {

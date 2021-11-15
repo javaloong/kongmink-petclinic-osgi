@@ -15,6 +15,7 @@
  */
 package org.javaloong.kongmink.petclinic.vets.internal.web;
 
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
 import org.javaloong.kongmink.petclinic.vets.internal.security.Roles;
@@ -42,6 +43,7 @@ import java.util.Collection;
 @JaxrsName(VetResource.RESOURCE_NAME)
 @JaxrsApplicationSelect("(" + JaxrsWhiteboardConstants.JAX_RS_NAME + "=" + RESTConstants.JAX_RS_NAME + ")")
 @JSONRequired
+@SecurityRequirement(name = RESTConstants.SECURITY_BASIC_AUTH)
 @Path("/vets")
 @Produces(MediaType.APPLICATION_JSON)
 public class VetResource {

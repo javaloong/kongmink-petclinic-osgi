@@ -20,6 +20,7 @@ import org.osgi.service.component.annotations.Component;
 import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsApplicationBase;
 import org.osgi.service.jaxrs.whiteboard.propertytypes.JaxrsName;
 
+import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
 /**
@@ -30,6 +31,7 @@ import javax.ws.rs.core.Application;
 @Component(service = Application.class,
         property = {"servlet.init.hide-service-list-page=true"})
 @JaxrsName(RESTConstants.JAX_RS_NAME)
-@JaxrsApplicationBase("api")
+@JaxrsApplicationBase(RESTConstants.BASE_PATH)
+@ApplicationPath(RESTConstants.BASE_PATH)
 public class RestApplication extends Application {
 }
