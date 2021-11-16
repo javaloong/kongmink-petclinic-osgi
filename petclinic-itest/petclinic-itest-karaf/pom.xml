@@ -33,56 +33,6 @@
             <version>${project.version}</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-customers-api</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-customers-ds</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-vets-api</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-vets-ds</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-visits-api</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.javaloong.kongmink</groupId>
-            <artifactId>petclinic-osgi-visits-ds</artifactId>
-            <version>${project.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>jakarta.ws.rs</groupId>
-            <artifactId>jakarta.ws.rs-api</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.cxf</groupId>
-            <artifactId>cxf-rt-rs-client</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.fasterxml.jackson.jaxrs</groupId>
-            <artifactId>jackson-jaxrs-json-provider</artifactId>
-            <scope>test</scope>
-        </dependency>
         <!-- Provide the KarafTestSupport -->
         <dependency>
             <groupId>org.apache.karaf.itests</groupId>
