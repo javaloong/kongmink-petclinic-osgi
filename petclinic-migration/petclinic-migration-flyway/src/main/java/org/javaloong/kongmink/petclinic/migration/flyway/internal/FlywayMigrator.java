@@ -45,6 +45,7 @@ public class FlywayMigrator implements PreHook {
                     .dataSource(dataSource)
                     .locations(resolveLocation(dataSource))
                     .outOfOrder(true)
+                    .validateOnMigrate(false)
                     .load()
                     .migrate();
         } finally {
