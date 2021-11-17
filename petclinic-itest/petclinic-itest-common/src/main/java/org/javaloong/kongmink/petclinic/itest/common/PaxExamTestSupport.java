@@ -89,12 +89,11 @@ public abstract class PaxExamTestSupport {
 
     protected Option logback() {
         return composite(
-                systemProperty("logback.configurationFile").value("src/test/resources/logback.xml"),
-                url("link:classpath:META-INF/links/org.slf4j.api.link")
+                systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("INFO"),
+                systemProperty("org.ops4j.pax.logging.property.file").value("src/test/resources/logback.xml"),
+                mavenBundle("org.ops4j.pax.logging", "pax-logging-api").versionAsInProject()
                         .startLevel(START_LEVEL_SYSTEM_BUNDLES),
-                url("link:classpath:META-INF/links/ch.qos.logback.core.link")
-                        .startLevel(START_LEVEL_SYSTEM_BUNDLES),
-                url("link:classpath:META-INF/links/ch.qos.logback.classic.link")
+                mavenBundle("org.ops4j.pax.logging", "pax-logging-logback").versionAsInProject()
                         .startLevel(START_LEVEL_SYSTEM_BUNDLES)
         );
     }
