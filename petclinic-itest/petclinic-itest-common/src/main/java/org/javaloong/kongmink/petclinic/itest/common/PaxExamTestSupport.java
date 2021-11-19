@@ -179,6 +179,36 @@ public abstract class PaxExamTestSupport {
     }
 
     protected Option httpService() {
+        return felixHttpService();
+    }
+
+    protected Option paxWebHttpService() {
+        return composite(
+                mavenBundle("javax.servlet", "javax.servlet-api", "3.1.0"),
+                mavenBundle("javax.annotation", "javax.annotation-api", "1.3"),
+                mavenBundle("org.apache.xbean", "xbean-bundleutils", "4.19"),
+                mavenBundle("org.apache.xbean", "xbean-reflect", "4.19"),
+                mavenBundle("org.apache.xbean", "xbean-finder", "4.19"),
+                mavenBundle("org.eclipse.jetty", "jetty-continuation", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-http", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-io", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-security", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-server", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-servlet", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-xml", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-util", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jetty", "jetty-util-ajax", "9.4.43.v20210629"),
+                mavenBundle("org.eclipse.jdt.core.compiler", "ecj", "4.5.1"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-api", "7.3.19"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-spi", "7.3.19"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-jetty", "7.3.19"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-runtime", "7.3.19"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-jsp", "7.3.19"),
+                mavenBundle("org.ops4j.pax.web", "pax-web-extender-whiteboard", "7.3.19")
+        );
+    }
+
+    protected Option felixHttpService() {
         return composite(
                 mavenBundle("org.apache.felix", "org.apache.felix.http.servlet-api", "1.1.2")
                         .startLevel(START_LEVEL_SYSTEM_BUNDLES),
