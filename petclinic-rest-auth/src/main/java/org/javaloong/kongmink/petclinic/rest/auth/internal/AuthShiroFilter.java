@@ -1,41 +1,21 @@
-/*
- * Copyright 2012-2021 the original author or authors.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      https://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package org.javaloong.kongmink.petclinic.rest.auth.internal;
 
-import org.apache.shiro.config.Ini;
+import io.buji.pac4j.env.Pac4jIniEnvironment;
+import org.apache.shiro.util.LifecycleUtils;
 import org.apache.shiro.web.env.IniWebEnvironment;
 import org.apache.shiro.web.env.WebEnvironment;
 import org.apache.shiro.web.filter.mgt.FilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
+import org.apache.shiro.web.servlet.ShiroFilter;
 import org.javaloong.kongmink.petclinic.rest.RESTConstants;
-import org.osgi.framework.Bundle;
-import org.osgi.framework.BundleContext;
-import org.osgi.service.component.annotations.Activate;
 import org.osgi.service.component.annotations.Component;
 import org.osgi.service.http.whiteboard.HttpWhiteboardConstants;
 import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardContextSelect;
 import org.osgi.service.http.whiteboard.propertytypes.HttpWhiteboardFilterPattern;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.Filter;
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 
+import static java.lang.Thread.currentThread;
 import static org.javaloong.kongmink.petclinic.rest.auth.internal.AuthShiroFilter.CONTEXT_NAME;
 
 @Component(service = Filter.class, immediate = true)
@@ -43,13 +23,15 @@ import static org.javaloong.kongmink.petclinic.rest.auth.internal.AuthShiroFilte
 @HttpWhiteboardFilterPattern("/*")
 public class AuthShiroFilter extends AbstractShiroFilter {
 
-    private static final Logger log = LoggerFactory.getLogger(AuthShiroFilter.class);
-
     public static final String CONTEXT_NAME  = "context.for" + RESTConstants.JAX_RS_NAME;
 
-    @Activate
-    public void activate(BundleContext context) throws Exception {
-        WebEnvironment env = createWebEnvironment(context);
+    private WebEnvironment env;
+
+    @Override
+    public void init() {
+        if(env == null) {
+            env = createWebEnvironment();
+        }
         this.setSecurityManager(env.getWebSecurityManager());
         FilterChainResolver resolver = env.getFilterChainResolver();
         if (resolver != null) {
@@ -57,32 +39,21 @@ public class AuthShiroFilter extends AbstractShiroFilter {
         }
     }
 
-    private WebEnvironment createWebEnvironment(BundleContext context) throws IOException {
-        IniWebEnvironment environment = new IniWebEnvironment();
-        Ini ini = createShiroIni(context.getBundle());
-        environment.setIni(ini);
-        environment.setServletContext(getServletContext());
-        environment.init();
-        return environment;
-    }
-
-    private Ini createShiroIni(Bundle bundle) throws IOException {
-        String shiroIniPath = System.getProperty("karaf.etc") + File.separator + "shiro.ini";
-        File f = new File(shiroIniPath);
-        if(f.exists()) {
-            Ini ini = new Ini();
-            String fileBasedIniPath = f.getAbsolutePath();
-            log.debug("Attempting an ini load from the file: \"{}\"", fileBasedIniPath);
-            ini.loadFromPath(fileBasedIniPath);
-            return ini;
+    private WebEnvironment createWebEnvironment() {
+        final ClassLoader ldr = currentThread().getContextClassLoader();
+        currentThread().setContextClassLoader(this.getClass().getClassLoader());
+        try {
+            IniWebEnvironment environment = new KarafIniWebEnvironment();
+            environment.setServletContext(getServletContext());
+            environment.init();
+            return environment;
+        } finally {
+            currentThread().setContextClassLoader(ldr);
         }
-        return createShiroIniFromBundle(bundle);
     }
 
-    private Ini createShiroIniFromBundle(Bundle bundle) throws IOException {
-        Ini ini = new Ini();
-        URL url = bundle.getEntry("shiro.ini");
-        ini.load(url.openStream());
-        return ini;
+    @Override
+    public void destroy() {
+        LifecycleUtils.destroy(env);
     }
 }

@@ -155,7 +155,29 @@
         <bundle dependency="true">mvn:commons-logging/commons-logging/${commons.logging.version}</bundle>
         <bundle dependency="true">mvn:commons-collections/commons-collections/${commons.collection.version}</bundle>
         <bundle dependency="true">mvn:org.apache.shiro/shiro-jaxrs/${shiro.version}</bundle>
+        <bundle dependency="true">mvn:org.pac4j/pac4j-core/${pac4j.version}</bundle>
+        <bundle dependency="true">wrap:mvn:io.buji/buji-pac4j/${buji.pac4j.version}</bundle>
         <bundle>mvn:org.javaloong.kongmink/petclinic-osgi-rest-auth/${project.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-rest-auth-oauth" version="${project.version}">
+        <feature>petclinic-osgi-rest-auth</feature>
+        <bundle dependency="true">mvn:commons-codec/commons-codec/${commons-codec.version}</bundle>
+        <bundle dependency="true">mvn:com.github.scribejava/scribejava-apis/7.1.1</bundle>
+        <bundle dependency="true">mvn:com.github.scribejava/scribejava-core/7.1.1</bundle>
+        <bundle>mvn:org.pac4j/pac4j-oauth/${pac4j.version}</bundle>
+    </feature>
+
+    <feature name="petclinic-osgi-rest-auth-oidc" version="${project.version}">
+        <feature>petclinic-osgi-rest-auth</feature>
+        <bundle dependency="true">wrap:mvn:com.github.stephenc.jcip/jcip-annotations/1.0-1</bundle>
+        <bundle dependency="true">mvn:net.minidev/json-smart/2.4.7</bundle>
+        <bundle dependency="true">mvn:net.minidev/accessors-smart/2.4.7</bundle>
+        <bundle dependency="true">mvn:com.nimbusds/lang-tag/1.5</bundle>
+        <bundle dependency="true">mvn:com.nimbusds/content-type/2.1</bundle>
+        <bundle dependency="true">mvn:com.nimbusds/oauth2-oidc-sdk/8.36.2</bundle>
+        <bundle dependency="true">mvn:com.nimbusds/nimbus-jose-jwt/8.23</bundle>
+        <bundle>mvn:org.pac4j/pac4j-oidc/${pac4j.version}</bundle>
     </feature>
 
     <feature name="petclinic-osgi-migration-flyway" version="${project.version}">
