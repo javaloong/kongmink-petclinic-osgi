@@ -152,8 +152,9 @@
         <feature>petclinic-osgi-rest-common</feature>
         <feature>shiro-web</feature>
         <bundle dependency="true">mvn:commons-beanutils/commons-beanutils/${commons.beanutils.version}</bundle>
-        <bundle dependency="true">mvn:commons-logging/commons-logging/${commons.logging.version}</bundle>
         <bundle dependency="true">mvn:commons-collections/commons-collections/${commons.collection.version}</bundle>
+        <bundle dependency="true">mvn:org.apache.commons/commons-text/${commons.text.version}</bundle>
+        <bundle dependency="true">mvn:org.apache.commons/commons-configuration2/${commons.configuration2.version}</bundle>
         <bundle dependency="true">mvn:org.apache.shiro/shiro-jaxrs/${shiro.version}</bundle>
         <bundle dependency="true">mvn:org.pac4j/pac4j-core/${pac4j.version}</bundle>
         <bundle dependency="true">wrap:mvn:io.buji/buji-pac4j/${buji.pac4j.version}</bundle>

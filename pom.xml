@@ -50,6 +50,8 @@
         <commons-lang3.version>3.11</commons-lang3.version>
         <commons.beanutils.version>1.9.4</commons.beanutils.version>
         <commons.collection.version>3.2.2</commons.collection.version>
+        <commons.text.version>1.8</commons.text.version>
+        <commons.configuration2.version>2.7</commons.configuration2.version>
         <commons-codec.version>1.15</commons-codec.version>
         <commons.logging.version>1.2</commons.logging.version>
         <shiro.version>1.7.1</shiro.version>
