@@ -91,9 +91,9 @@ public abstract class PaxExamTestSupport {
         return composite(
                 systemProperty("org.ops4j.pax.logging.DefaultServiceLog.level").value("INFO"),
                 systemProperty("org.ops4j.pax.logging.property.file").value("src/test/resources/logback.xml"),
-                mavenBundle("org.ops4j.pax.logging", "pax-logging-api").versionAsInProject()
+                mavenBundle("org.ops4j.pax.logging", "pax-logging-api", "2.0.10")
                         .startLevel(START_LEVEL_SYSTEM_BUNDLES),
-                mavenBundle("org.ops4j.pax.logging", "pax-logging-logback").versionAsInProject()
+                mavenBundle("org.ops4j.pax.logging", "pax-logging-logback", "2.0.10")
                         .startLevel(START_LEVEL_SYSTEM_BUNDLES)
         );
     }
